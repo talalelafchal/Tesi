@@ -1,0 +1,35 @@
+\begin{thebibliography}{3}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Robillard et~al.(2010)Robillard, Walker, and
+  Zimmermann]{RecommendationSystemsforSoftwareEngineering}
+M.~Robillard, R.~Walker, and T.~Zimmermann.
+\newblock Recommendation systems for software engineering.
+\newblock \emph{IEEE Software}, 27\penalty0 (4):\penalty0 80--86, July 2010.
+\newblock ISSN 0740-7459.
+\newblock \doi{10.1109/MS.2009.161}.
+
+\bibitem[Sadowski et~al.(2015)Sadowski, Stolee, and Elbaum]{Sadowski:2015}
+Caitlin Sadowski, Kathryn~T. Stolee, and Sebastian Elbaum.
+\newblock How developers search for code: A case study.
+\newblock In \emph{Proceedings of the 2015 10th Joint Meeting on Foundations of
+  Software Engineering}, ESEC/FSE 2015, pages 191--201, New York, NY, USA,
+  2015. ACM.
+\newblock ISBN 978-1-4503-3675-8.
+\newblock \doi{10.1145/2786805.2786855}.
+\newblock URL \url{http://doi.acm.org/10.1145/2786805.2786855}.
+
+\bibitem[Singer et~al.(1997)Singer, Lethbridge, Vinson, and
+  Anquetil]{Singer-1997}
+Janice Singer, Timothy Lethbridge, Norman Vinson, and Nicolas Anquetil.
+\newblock An examination of software engineering work practices.
+\newblock In \emph{Proceedings of the 1997 Conference of the Centre for
+  Advanced Studies on Collaborative Research}, CASCON '97, pages 21--. IBM
+  Press, 1997.
+\newblock URL \url{http://dl.acm.org/citation.cfm?id=782010.782031}.
+
+\end{thebibliography}

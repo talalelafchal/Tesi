@@ -1,0 +1,50 @@
+This is BibTeX, Version 0.99d (TeX Live 2016)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: usiinf-masterthesis-sample.aux
+The style file: plainnat.bst
+Database file #1: biblio.bib
+Warning--I didn't find a database entry for "bbggs:iet07"
+Warning--I didn't find a database entry for "bpelspec"
+Warning--I didn't find a database entry for ""
+You've used 3 entries,
+            2773 wiz_defined-function locations,
+            627 strings with 5781 characters,
+and the built_in function-call counts, 1868 in all, are:
+= -- 184
+> -- 99
+< -- 2
++ -- 33
+- -- 30
+* -- 158
+:= -- 281
+add.period$ -- 17
+call.type$ -- 3
+change.case$ -- 19
+chr.to.int$ -- 3
+cite$ -- 6
+duplicate$ -- 85
+empty$ -- 141
+format.name$ -- 33
+if$ -- 407
+int.to.chr$ -- 1
+int.to.str$ -- 1
+missing$ -- 3
+newline$ -- 29
+num.names$ -- 12
+pop$ -- 30
+preamble$ -- 1
+purify$ -- 16
+quote$ -- 0
+skip$ -- 68
+stack$ -- 0
+substring$ -- 71
+swap$ -- 21
+text.length$ -- 2
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 33
+warning$ -- 0
+while$ -- 16
+width$ -- 0
+write$ -- 63
+(There were 3 warnings)
