@@ -1,7 +1,9 @@
 \documentclass[12pt,mscthesis]{usiinfthesis}
 
 \usepackage{lipsum}
-
+\usepackage{graphicx}
+\usepackage{cleveref}
+\graphicspath{ {figures/} }
 
 \usepackage{listings}
 \usepackage[autostyle]{csquotes} 
@@ -66,7 +68,7 @@ Recommender systems for software developers have become increasingly popular in 
 	We have to introduce the proposed definition by the organizers of the ACM International Conference on Recommender Systems:\footnote{\url{https://recsys.acm.org/recsys09}} \\
 
 	  \blockquote{\textit{``Recommendation systems are software applications that aim to support users in their decision-making while interacting with large information spaces. They recommend items of interest to users based on preferences they have expressed, either explicitly or implicitly. The ever-expanding volume and increasing complexity of information [...] has therefore made such systems essential tools for users in a variety of information seeking [...] activities. Recommendation systems help overcome the information overload problem by exposing users to the most interesting items, and by offering novelty, surprise, and relevance.''}}
-	Now that we defined what is a recommender system, we can mention the recommender systems for software engineering (RSSE) definition given by \citet{RecommendationSystemsforSoftwareEngineering}:\\
+	Now that we defined what is a recommender system, we can mention \citet{RecommendationSystemsforSoftwareEngineering} definition of the recommender systems for software engineering (RSSE):\\
 
 	\textbf{An RSSE is a software application that provides information items estimated to be valuable for a software engineering task in a given context.}\\
 
@@ -77,7 +79,7 @@ Recommender systems for software developers have become increasingly popular in 
 
 
 
-	\citep{Singer-1997} reported in 1997 that the most frequent developer activity was code search, and \citep{Sadowski:2015} did a case study on how developers at Google search for code. They figured out that programmers are generally seeking answers to questions about how to use an API, what code does, why something is failing, or where the code is located. The interesting point in this study was the fact that most searches focus on code that is familiar or somewhat familiar to the developers.\\
+	\citet{Singer-1997} reported in 1997 that the most frequent developer activity was code search, and \citet{Sadowski:2015} did a case study on how developers at Google search for code. They figured out that programmers are generally seeking answers to questions about how to use an API, what code does, why something is failing, or where the code is located. The interesting point in this study was the fact that most searches focus on code that is familiar or somewhat familiar to the developers.\\
 	Therefore, we believe that recommender systems for software developers have to take into consideration the familiarity of a document when they suggest it to the developer. 
 
 
@@ -106,7 +108,7 @@ Recommender systems for software developers have become increasingly popular in 
 	 The language model was able to evaluate the Android testing documents as thousand times more familiar than the rest of the testing documents.
 	 In this experiment, the language model approach satisfied our expectation in capturing the document familiarity.\\
 
-	 On the top of this experiment, we did a case study, where we give a set of tutorials to programmers, and after reading the tutorials, a set of documents is given to them, some documents are related to the tutorials and some are not. In this study the developers are just asked to assess the documents by the comprehension effort on a scale from 1 to 5 (1$-$low effort 5$-$high effort)
+	 On the top of this experiment, we did a case study, where we give a set of tutorials to programmers, and after reading the tutorials, a set of documents is given to them, some documents are related to the tutorials and some are not. In this study, the developers are just asked to assess the documents by the comprehension effort on a scale from 1 to 5 (1$-$low effort 5$-$high effort)
 	 \newpage
 
 	\section{Structure of the Thesis}
@@ -122,7 +124,7 @@ Recommender systems for software developers have become increasingly popular in 
 		\item \textbf{Conclusion} this chapter is a summarization of our work, where we present some ideas for a possible future work.
 	\end{enumerate}
 \chapter{State of the Art}
-	In this chapter we talk about the existing related work to the comprehension effort, and we talk about code search engines and recommender systems.\\ 
+	In this chapter, we talk about the existing related work to the comprehension effort, and we talk about code search engines and recommender systems.\\ 
 
 	\citet{Kushwaha:2006:ICI:1163514.1163533} introduced a new equation :\\
 	\begin{center}
@@ -132,58 +134,113 @@ Recommender systems for software developers have become increasingly popular in 
 	  \end{center}
 
 	They claim that the required effort to understand a software depends on the difficulty in understanding the information, where the information is related to the number of operators and identifiers. They calculate the number of operators and identifiers per line of code and they multiply it by an associated weight of the identifier name ( 1 if the identifier name belongs to the problem domain, and 4 is the identifier name is selected arbitrarily). \\
-	They performed an experiment on 60 students, where 5 sample programs where given. One set of programs had meaningful identifier names related to problem domain and the other used arbitrarily selected identifier name. They measured the required time to comprehend the program.\\ 
+	They performed an experiment on 60 students, where 5 sample programs were given. One set of programs had meaningful identifier names related to the problem domain and the other used arbitrarily selected identifier name. They measured the required time to comprehend the program.\\ 
 	The result showed that programs with arbitrarily selected identifier names required about 4 times the time to comprehend the programs compared to programs with meaningful identifier names.\\
 
 
 
 	\newpage
-	\citet{Scalabrino} tried to introduce a metric able to assess the understandability of a given snippet code. In their work they consider three types of metrics:
+	\citet{Scalabrino}tried to introduce a metric able to assess the understandability of a given snippet code. In their work they consider three types of metrics:
 	\begin{enumerate}
-		\item \textbf{Code-related metrics} are metrics related to the code, as cyclomatic complexity, LOC,  number of identifiers, line length and many other metrics.
-		\item \textbf{Documentation-related metrics} captures the quality of the internal documentation of a snippet (comments readability, comments and identifiers consistency). 
-		\item \textbf{Developer-related metrics} measures the programming experience of the developer in years, in any programming language.
+		\item \textbf{Code-related metrics} are metrics related to the code, as cyclomatic complexity, LOC, the number of identifiers, line length and many other metrics.
+		\item \textbf{Documentation-related metrics} capture the quality of the internal documentation of a snippet (comments readability, and identifiers consistency). 
+		\item \textbf{Developer-related metrics} measure the programming experience of the developer in years, in any programming language.
 	\end{enumerate}
 	They analyze whether code-related, documentation-related, and developer- related metrics can be used to assess the understandability level of a snippet  code.
-	46 developers participated to this study. They were asked to carefully read and to fully understand eight code snippets. Participants could, in any moment select the option \textit{I understood the snippet} or \textit{I cannot understand the snippet}, and the time was monitored.
-	Once the participant chooses \textit{I understood the snippet} option , they ask question about the snippet code to verify the actual level of understanding.\\ 
-	\textit{``After an extensive statistical analysis none of the considered metrics exhibit a significant correlation with the understandability of code snippets''.}\\
+	46 developers participated in this study. They were asked to carefully read and to fully understand eight code snippets. Participants could, in any moment select the option \textit{I understood the snippet} or \textit{I cannot understand the snippet}, and the time was monitored.
+	Once the participant chooses \textit{I understood the snippet} option they ask question about the snippet code to verify the actual level of understanding.\\ 
+	\textit{``After an extensive statistical analysis, none of the considered metrics exhibit a significant correlation with the understandability of code snippets''.}\\
 	They assumed that the code complexity has a big influence on the programmers' ability to understand the code, but they couldn't demonstrate it with a strong empirical evidence.\\
 	They also mentioned that the code readability can have a direct impact on the understandability of the code.\\ As mentioned in the previous chapter, in this thesis the code readability is a part of our comprehension effort calculation.\\
 
-	\citet{Buse2010} introduced a code readability metric, and they investigate its relation to software quality. A part of their work was to run an experiment which compares readability of the code to the cyclomatic complexity, and they were able to validate that the code readability is significantly independent from the traditional code complexity.\\
-	In this experiment, 120 developers were asked to individually score a sequence of 100 code snippets, based on their personal estimation of readability. From the result they determined which code features are predictive of readability, and they construct a readability model. They also tested the model performance on ten different classifiers, and on average the model classified correctly between 75\% and 80\% of the snippets.\\
-	They found that factors like \textit{average line length} and \textit{average number of identifiers per line} are very important to readability.\\
-	In this thesis we use \citep{Buse2010} approach to calculate code readability.
+	\citet{Buse2010} introduced a code readability metric, and they investigate its relation to software quality. A part of their work was to run an experiment which compares readability of the code to the cyclomatic complexity, and they were able to validate that the code readability is significantly independent of the traditional code complexity.\\
+	In this experiment, 120 developers were asked to individually score a sequence of 100 code snippets, based on their personal estimation of readability. From the result, they determined which code features are predictive of readability, and they construct a readability model. They also tested the model performance on ten different classifiers, and on average the model classified correctly between 75\% and 80\% of the snippets.\\
+	They found that factors like \textit{average line length} and, \textit{average number of identifiers per line} are very important to readability.\\
+	In this thesis we use \citet{Buse2010} approach to calculating code readability.
 
 	\section{Semantics Code Search}
 
-	\citep{Reiss:2009:SCS:1555001.1555040} presented a tool that generates a specific functions or classes from the open source repositories, where these classes meet user's specifications. This tool uses the user's input, as keywords and other constraints, and suggests codes that meet the user's needs.\\
+	\citet{Reiss:2009:SCS:1555001.1555040} presented a tool that generates a specific functions or classes from the open source repositories, where these classes meet user's specifications. This tool uses the user's input, as keywords and other constraints, and suggests codes that meet the user's needs.\\
 	The tool takes a set of candidate solutions, and it transforms it into a more appropriate set. Both static and dynamic specifications can be used.\\
-	This tool main goal is to satisfy the user's constraint, but it doesn't take in consideration the user's experience or the comprehension effort.\\
+	This tool main goal is to satisfy the user's constraint, but it doesn't take into consideration the user's experience or the comprehension effort.\\
 	
 
-	\citep{Thummalapenta:2007:PPA:1321631.1321663} presented a tool similar to \citep{Reiss:2009:SCS:1555001.1555040}, where they collect code from public sources and they they suggest it to the programmer based on their input query.\\ In the query the programmers have to specify the \textit{source object type} and the \textit{destination object type}.\\ This tool is too restrictive and doesn't take in consideration any readability or complexity metrics.\\
+	\citet{Thummalapenta:2007:PPA:1321631.1321663} presented a tool similar to \citet{Reiss:2009:SCS:1555001.1555040}, where they collect code from public sources and they suggest it to the programmer based on their input query.\\ In the query, the programmers have to specify the \textit{source object type} and the \textit{destination object type}.\\ This tool is too restrictive and doesn't take into consideration any readability or complexity metrics.\\
 
-	\citep{journals/tse/McMillanGPFX12} created an application search system called \textit{Exemplar}, which reduce the mismatch between the high-level intent reflected in the descriptions of software and low-level implementation details.\\ Exemplar differs from the traditional search engine that matches the keywords, by matching keywords with the descriptions of the various API calls in help documents.\\
+	\citet{McMillan:2011:FRF:1985793.1986032} created an application search system called \textit{Exemplar}, which reduce the mismatch between the high-level intent reflected in the descriptions of software and low-level implementation details.\\ Exemplar differs from the traditional search engine that matches the keywords, by matching keywords with the descriptions of the various API calls in help documents.\\
 	Exemplar has three components of Ranking: 
 	\begin{enumerate}
 		\item \textbf{WOS} a component that computes a score based on word occurrences in project descriptions
 		\item \textbf{RAS} a component that computes a score based on the relevant API calls
-		\item \textbf{DCS} a score based on dataflow connections between calls
+		\item \textbf{DCS} a score based on data-flow connections between calls
 	\end{enumerate}
-	In this paper \citet{journals/tse/McMillanGPFX12} said : \\
+	In this paper \citet{McMillan:2011:FRF:1985793.1986032}  said : \\
 	\textit{``the results suggest that the performance of software search engines can be improved if those engines consider the API calls that the software uses.''}
 
 	\section{Code Search Engines}
+	\citet{Bajracharya2012} conducted an exploratory analysis of the usage log of Koders, the first commercially available Internet-Scale code search engine, and their goal is to answer the following three questions:\\
+	\begin{enumerate}
+	\item \textbf{Usage}: What kind of usage behavior can we see in Koders?
+	\item \textbf{Search Topics}: What are the users searching for?
+	\item \textbf{Query Forms}: How are users expressing their information need in their queries?
+	\end{enumerate}
+	They start analyzing the usage logs, and they get the following results: 
+	\begin{itemize}
+	\item Most of the users did not use Koders again after using it for a day
+	\item Sessions are short (a series of activities by a single user within a small duration of time constitutes a session )
+	\item More than half of the sessions had no downloads
+	\item There are few sessions with no search activities
+	\item Queries are very short
+	\item Terms in queries are quite diverse
+	\item Code queries are the mostl used types of queries
+	\item Code queries lead to the most of the downloads
+	\end{itemize}
+	they conclude the analysis by mentioning that usage behavior is similar between Koders and search on the Web, and the majority of the users don't refine their existing queries.\\
+	\newpage
+	
 	\section{Libra}
+	\citet{Ponz2017a} created LIBRA, a holistic recommender system that supports developers in their information search in the web browser. The developers are tracked during their activities in the IDE and in the web browser, which allows Libra to collect information as web search results, perused pages, and code written and modified by the developer. LIBRA uses this information to model a knowledge context of the developer and, constructs a holistic meta-information model of their contents.\\
+	
+	LIBRA is based on three important metrics :
+	
+	\begin{itemize}
+	\item \textbf{Context Complementarity} measures the information intake provided by a resource in the current context of the developer. A low context complementarity indicates that the resource information is already a part of the context.In other words, the resource and the context are too similar, and the amount of new information that the developer can retrieve is low.
+	
+	\item \textbf{Result Prominence} identifies prominent results among the search engine result set. When a query matches a result, it doesn't tell us so much about the result relevance. If a result overlaps with many other results, it would be more prominent, since probably it provides diversified information in its contents.
+	
+	\item \textbf{Information Quantity} sums up the number of ``elements'' identified by LIBRA's meta-information system. This metric is important to distinguish which resource has more information giving two resources with a similar number of characters. If the first resource has only text and the second one has text and code, obviously the second resource contains a higher information quantity.
+	\end{itemize}
 
+	16 3rd year CS Bachelor students were asked to evaluate LIBRA in terms of \textit{its ability in correctly assessing for each query search result its prominence and complementarity with respect to the context, and usefulness to developers during a development or maintenance task.}\\
+	The study results indicated that both prominence and complementarity indicators reflect developers’ perception of such measures, and are considered as useful indicators. Moreover, with LIBRA the students  achieved a significantly better task completeness.\\
+
+	This thesis work can be integrated with LIBRA, where the comprehension effort metric can be added to the other three metrics used by LIBRA.
 
 
 \chapter{Approach}
+ The most frequent developer activity is code search \cite{Singer-1997}, and most searches focus on code that is familiar to the developer\cite{Sadowski:2015}. Certainly, developers prefer to search for documents they are familiar with since they require less effort to be comprehended. We believe that the comprehension effort is strictly related to the document familiarity and readability.\\
+ So far many studies were done on the text readability (Flesch$-$Kincaid, Dale$-$Chall), and code readability \cite{Buse:2010:LMC:1850489.1850615}, but in this thesis, we introduce for the first time a new approach to calculate a document familiarity.\\
+
+	
 	\section{Overview}
-	\section{Language Model}
+	The volume of online resources is increasing, we can find millions of documents related to one search query. However, how can we suggest the most suitable one to developers? Several elements determine which documents contain valuable information, and one of these elements is the comprehension effort.\\
+	We derive the comprehension effort from the document \textit{readability} and \textit{familiarity}.\\
+
+	Each document contains natural language or code or both of them, therefore, we calculate the readability and the familiarity separately as we show in \cref{fig1}. 
+	In order to extract code and natural language from a document, we use Stormed Island Parser\footnote{\url{https://stormed.inf.usi.ch}} \cite{Ponz2015a}.\\
+	\newpage
+	On the other hand, we use a language model to calculate the familiarity of a document, Flesch$-$Kincaid to calculate the text readability, RayKernel \cite{Buse:2010:LMC:1850489.1850615} to calculate the code readability
+	
+
+	\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=\textwidth]{fig1}
+	\caption{Document accessing}
+	\label{fig1}
+	\end{figure}
+
 	\section{Stormed Island Parser}
+	\section{Language Model}
 	\section{Training the Language Model}
 	\section{Accounting for Readability}
 
@@ -253,7 +310,7 @@ end
 As you can easily see from the above listing \citet{bbggs:iet07}
 define something weird based on the BPEL specification
 \citep{bpelspec}.
-\cite{}
+
 \nocite{*}
 
 \appendix %optional, use only if you have an appendix
@@ -274,6 +331,6 @@ define something weird based on the BPEL specification
 %\cleardoublepage
 %\theindex %optional, use only if you have an index, must use
 	  %\makeindex in the preamble
-\lipsum
+
 
 \end{document}
