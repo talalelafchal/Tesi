@@ -2,6 +2,7 @@
 
 \usepackage{lipsum}
 \usepackage{graphicx}
+\usepackage{float}
 \usepackage{cleveref}
 \graphicspath{ {figures/} }
 
@@ -42,7 +43,7 @@ morecomment=[l]{//s},
 \frontmatter %generates the frontmatter, this is FIXED
 
 \begin{abstract}
-Recommender systems for software developers have become increasingly popular in recent years. These systems combine several methodologies to provide suggestions that meet the developer's needs. The recommender systems collect data from online resources as blogs, forums, Q\&A websites, and suggest documents or piece of code that are most likely helpful to the developers. However, these systems are not taking into consideration an important aspect as the comprehension effort which may vary depending on the document familiarity and readability. Usually developers are more interested in documents which they are familiar with. By calculating the comprehension effort, the recommender system can re-rank the documents and suggest the most comprehensive and appropriate ones to the developer. In this work, we present our approach to calculating the effort, by creating a language model able to capture a document familiarity, that we combine with the document readability. 
+Recommender systems for software developers have become increasingly popular in recent years. These systems combine several methodologies to provide suggestions that meet the developer's needs. The recommender systems collect data from online resources as blogs, forums, Q\&A websites, and suggest documents or piece of code that are most likely helpful to the developers. However, these systems are not taking into consideration an important aspect as the comprehension effort, which may vary depending on the document familiarity and readability. Usually developers are more interested in documents which they are familiar with. By calculating the comprehension effort, the recommender system can re-rank the documents and suggest the most comprehensive and appropriate ones to the developer. In this work, we present our approach to calculating the comprehension effort, by creating a language model able to capture a document familiarity, that we combine with the document readability. 
 \end{abstract}
 
 \begin{acknowledgements}
@@ -57,13 +58,13 @@ Recommender systems for software developers have become increasingly popular in 
 \chapter{Introduction}
 
 	\section{Context}
-	Software systems complexity is increasing, and new technologies are introduced constantly. The software developers often have to work with new technologies which they are not familiar with, and as increasingly more comes out, the amount of information that they need to know will increase. Android, for example, was introduced 10 years ago in 2007 and nowadays there are more than three million applications available on the Google store. \\
+	Software systems complexity is increasing, and new technologies are introduced constantly. The software developers often have to work with new technologies which they are not familiar with, and as increasingly more comes out, the amount of information that they need to know will increase. Android, for example, was introduced 10 years ago in 2007. Nowadays, there are more than three million applications available on the Google store. \\
 	When Android started to become popular, developers had to learn this technology and to stay updated with each new version release. 
-	They had to figure out how activities work in Android, and how to use several APIs to implement different tasks assigned to them. Where do they start from? Is there some tutorial on the web where they can learn how to use a specific API, or where they can find a piece of code that can be reused in their application? \\
-	If we search on Google for an Android tutorial we will find 22 million documents\footnote{\url{https://www.google.ch/search?site=&source=hp&q=android+tutorial&oq=android+tutorial}}, even if we search for a specific field, as an Android Bluetooth tutorial\footnote{\url{https://www.google.ch/search?client=safari&rls=en&biw=1440&bih=839&q=android+bluetooth+example}}, we get 6 million documents which still a huge number.\\
+	They had to figure out how activities work in Android, and how to use several APIs to implement different tasks assigned to them. Where do they start from? Is there some tutorial on the web where they can learn how to use a specific API? Where can they find a piece of code that can be reused in their application? \\
+	If we search on Google for an Android tutorial, we will find 22 million documents\footnote{\url{https://www.google.ch/search?site=&source=hp&q=android+tutorial&oq=android+tutorial}}, even if we search for a specific field, as an Android Bluetooth tutorial\footnote{\url{https://www.google.ch/search?client=safari&rls=en&biw=1440&bih=839&q=android+bluetooth+example}}, we get 6 million documents which still a huge number.\\
 	Stack Overflow is one of the most popular Q\&A websites for developers, where a million of questions are tagged as Android\footnote{\url{https://stackoverflow.com/questions/tagged/android}}. \\
 	Github hosts more than 500 thousand Android repositories\footnote{\url{https://github.com/search?utf8=✓&q=android&type=}}, with millions of lines of code. Those numbers are gigantic, and it is obvious that finding the most suitable document is not obvious, since given the big number of available documents it is not feasible for the developer to check all of them and choose the right one.\\
-	Therefore, the recommender systems for software engineering are an important support for programmers. They provide the must valuable documents in a given context.\\
+	Therefore, the recommender systems for software engineering are an important support for programmers. They provide the most valuable documents in a given context.\\
 
 	We have to introduce the proposed definition by the organizers of the ACM International Conference on Recommender Systems:\footnote{\url{https://recsys.acm.org/recsys09}} \\
 
@@ -72,14 +73,14 @@ Recommender systems for software developers have become increasingly popular in 
 
 	\textbf{An RSSE is a software application that provides information items estimated to be valuable for a software engineering task in a given context.}\\
 
-	The RSSE definition highlights the importance of the \textbf{context} and the \textbf{valuable information}, therefore RSSEs are an important support for programmers to find the information they should know, and the RSSEs have to consider and evaluate alternative decisions. We believe that effort to comprehend a document must be a part of the document evaluation.\\
+	The RSSE definition highlights the importance of the \textbf{context} and the \textbf{valuable information}, therefore RSSEs are an important support for programmers to find the information they should know, and the RSSEs have to consider and evaluate alternative decisions. We believe that the effort to comprehend a document must be a part of the document evaluation.\\
 
 
 	Searching for documentation and tutorials is a crucial step in learning a new technology. The developers can find a bunch of online resources as blogs, forums, Q\&A websites, but the real challenge is to find the most suitable one for their needs.
 
 
 
-	\citet{Singer-1997} reported in 1997 that the most frequent developer activity was code search, and \citet{Sadowski:2015} did a case study on how developers at Google search for code. They figured out that programmers are generally seeking answers to questions about how to use an API, what code does, why something is failing, or where the code is located. The interesting point in this study was the fact that most searches focus on code that is familiar or somewhat familiar to the developers.\\
+	\citet{Singer-1997} reported in 1997 that the most frequent developer activity was code search, and \citet{Sadowski:2015} did a case study on how developers at Google search for code. They figured out that programmers are generally seeking answers to questions about how to use an API, what code does, why something is failing, or where the code is located. The interesting point in this study was the fact that most searches focus on code that is familiar, or somewhat familiar to the developers.\\
 	Therefore, we believe that recommender systems for software developers have to take into consideration the familiarity of a document when they suggest it to the developer. 
 
 
@@ -94,7 +95,7 @@ Recommender systems for software developers have become increasingly popular in 
 	\end{itemize}
 	The comprehension effort can be derived from the document familiarity and readability.\\
 
-	For example, if we have two documents where, in the first one we have a sorting algorithm implemented in Java, and in the second one a sorting algorithm implemented in Fortran, and the developer is more familiar with Java. And we want to use a tool that gives us a score that indicates which document requires less effort to be comprehended, where a higher score indicates a big effort.\\
+	For example, if we want to use a tool that gives us a score to indicate which document requires less effort to be comprehended, where a higher score indicates a high effort. And we have two documents where, in the first one we have a sorting algorithm implemented in Java, and in the second one a sorting algorithm implemented in Fortran, and the developer is more familiar with Java.\\
 	We expect that the first document must have a lower score since logically it requires less effort to be comprehended by developers who are more familiar with Java.
 	What if both documents have a sorting algorithm implemented in the same programing language? which one will have a lower score? \\
 	In this case, the document readability will have a big impact on the comprehension effort.\\
@@ -104,11 +105,12 @@ Recommender systems for software developers have become increasingly popular in 
 	Our main goal in this thesis is to assess documents by their comprehension effort, which can be used by RSSE to improve their suggestions.\\
 	In order to calculate the comprehension effort, we need to find a way to calculate the familiarity, and we need to evaluate our approach to understand if it effectively works.\\
 
-	 As a first step, we select a big set of Android documents, which represent the hypothetical developer knowledge, where each document contains code and natural language. Then we create a \textbf{ Language Model} that we train with these documents (training documents). In this way, we were able to simulate a programmer who is familiar with Android. Once we trained the language model, we evaluate the familiarity of a given set of documents (testing documents) that contains Android documents and other documents which are not related to Android.\\ 
+	 As a first step, we select a big set of Android documents, which represent the hypothetical developer knowledge, where a document can be a mix of code and natural language, then we create a \textbf{ Language Model} and we train it with these documents (training documents). In this way, we are able to simulate a programmer who is familiar with Android. Once we trained the language model, we evaluate the familiarity of a given set of documents (testing documents) that contains Android documents and other documents that are not related to Android.\\ 
 	 The language model was able to evaluate the Android testing documents as thousand times more familiar than the rest of the testing documents.
 	 In this experiment, the language model approach satisfied our expectation in capturing the document familiarity.\\
 
-	 On the top of this experiment, we did a case study, where we give a set of tutorials to programmers, and after reading the tutorials, a set of documents is given to them, some documents are related to the tutorials and some are not. In this study, the developers are just asked to assess the documents by the comprehension effort on a scale from 1 to 5 (1$-$low effort 5$-$high effort)
+	 On the top of this experiment, we did a case study to evaluate our approach in assessing documents by the comprehension effort. In this study we ask programmers to read a set of tutorials, and then we give them a set of documents, where some documents are related to the tutorials and some are not. The developers are just asked to score the documents by the comprehension effort on a scale from 1 to 5 (1$-$low effort 5$-$high effort)
+	 \dots 
 	 \newpage
 
 	\section{Structure of the Thesis}
@@ -116,10 +118,10 @@ Recommender systems for software developers have become increasingly popular in 
 	\begin{enumerate}
 	
 		\item \textbf{Introduction}
-		\item \textbf{State of the Art} describes the existing related work as code search engines and recommender systems.
+		\item \textbf{State of the Art} describes the existing related work as code search engines, and recommender systems.
 		\item \textbf{Approach} describes our approach to calculate the comprehension effort.
-		\item \textbf{Study design} in this chapter we discuss the research question, the data extraction process, and the analysis method, and the replication package 
-		\item \textbf{Result} describes and discuss our experiment and case study results and their implication.
+		\item \textbf{Study design} in this chapter we discuss the research question, the data extraction process, the analysis method, and the replication package 
+		\item \textbf{Result} shows the results and their implication.
 		\item \textbf{Threat to Validity} describes our assumptions, and the possible threats that could affect the results validity.
 		\item \textbf{Conclusion} this chapter is a summarization of our work, where we present some ideas for a possible future work.
 	\end{enumerate}
@@ -214,7 +216,7 @@ Recommender systems for software developers have become increasingly popular in 
 	16 3rd year CS Bachelor students were asked to evaluate LIBRA in terms of \textit{its ability in correctly assessing for each query search result its prominence and complementarity with respect to the context, and usefulness to developers during a development or maintenance task.}\\
 	The study results indicated that both prominence and complementarity indicators reflect developers’ perception of such measures, and are considered as useful indicators. Moreover, with LIBRA the students  achieved a significantly better task completeness.\\
 
-	This thesis work can be integrated with LIBRA, where the comprehension effort metric can be added to the other three metrics used by LIBRA.
+	The work that has been done in this thesis can be integrated with LIBRA, where the comprehension effort metric can be added to the other three metrics used by LIBRA.
 
 
 \chapter{Approach}
@@ -226,10 +228,10 @@ Recommender systems for software developers have become increasingly popular in 
 	The volume of online resources is increasing, we can find millions of documents related to one search query. However, how can we suggest the most suitable one to developers? Several elements determine which documents contain valuable information, and one of these elements is the comprehension effort.\\
 	We derive the comprehension effort from the document \textit{readability} and \textit{familiarity}.\\
 
-	Each document contains natural language or code or both of them, therefore, we calculate the readability and the familiarity separately as we show in \cref{fig1}. 
+	Each document contains natural language or code or both of them, therefore, we calculate the readability and the familiarity separately as shown in \cref{fig1}. 
 	In order to extract code and natural language from a document, we use Stormed Island Parser\footnote{\url{https://stormed.inf.usi.ch}} \cite{Ponz2015a}.\\
 	\newpage
-	On the other hand, we use a language model to calculate the familiarity of a document, Flesch$-$Kincaid to calculate the text readability, RayKernel \cite{Buse:2010:LMC:1850489.1850615} to calculate the code readability
+	On the other hand, we use a language model to calculate the familiarity of a document, Flesch$-$Kincaid to calculate the text readability, RayKernel \cite{Buse:2010:LMC:1850489.1850615} to calculate the code readability.
 	
 
 	\begin{figure}[htbp]
@@ -240,10 +242,99 @@ Recommender systems for software developers have become increasingly popular in 
 	\end{figure}
 
 	\section{Stormed Island Parser}
-	\section{Language Model}
-	\section{Training the Language Model}
-	\section{Accounting for Readability}
 
+	 Stormed is a dataset for Stack Overflow that models the posts by building a heterogeneous abstract syntax tree H-AST for each discussion in the data dump \cite{Ponz2015a}.  The H-AST nodes model the contents of a Stack Overflow discussions according to the kind of structured fragment it represents. As shown in \cref{stackOverflow} each Stack Overflow document is represented with HTML tag, Stormed extracts two types of information units:
+	 	 \begin{itemize}
+		\item \textbf{Text Unit}: textual part of a discussion. Text units are all fragments that are not tagged as <code>	
+		\item \textbf{Structured Fragment Unit}: code part of a discussion. Structured Fragment Unit are every contents tagged as <code> 
+	 \end{itemize}
+
+	 In \cref{stormed} we can see that Stormed gives us more detailed information about the \textit{Structured Fragment Unit}.\\
+	 Each \textit{Structured Fragment Unit} can be one of the following possible structured fragments:
+	 \begin{itemize}
+	 \item \textbf{JavaASTNode}: Java code including incomplete fragments.
+	 \item \textbf{StackTracesASTNode}: stack traces including incomplete stack trace lines.
+	 \item \textbf{XMLASTNode}: XML/HTML documents, tags and elements.
+	 \item \textbf{JSONASTNode}: JSON fragments.
+	 \end{itemize}
+
+
+	\begin{figure}[htbp]
+	 \centering
+	\includegraphics[width=\textwidth]{stackOverflow}
+	\caption{Example of Stack Overflow question with HTML tagging}
+	\label{stackOverflow}
+	\end{figure}
+
+	\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=\textwidth,height=5cm]{stormed}
+	\caption{Stormed Object Model of the dataset}
+	\label{stormed}
+	\end{figure}
+\newpage
+	Stormed provides us with a complete damp of Stack Overflow discussions, where each discussion is modeled as a heterogeneous abstract syntax, which allows us to distinguish between the textual part (natural language), and the code part. Moreover, Stormed parses the code part and identifies the Java code even if the code is incomplete.
+
+	\section{Language Model}
+
+	A \textbf{Probabilistic Language Model (LM)} is a probability distribution over sequences of words. Given such a sequence of length m, it assigns a probability $P(w_{1},\ldots ,w_{m})$ to the whole sequence\footnote{\url{https://en.wikipedia.org/wiki/Language_model}}.\\
+	The language model goal is to compute the probability of a sentence or sequence of words.
+	\[P(W) = P(w_{1},w_2,w_3,w_4,w_5\dots w_n)\]
+	A LM can also compute the probability of an upcoming word.
+	\[P(w_5|w_1,w_2,w_3,w_4)\]
+	A LM applies Markov Chain Assumption to compute $P(W)$
+	\[P(w_1w_2\dots w_n) \approx \prod_{i} P(w_i|w_{i-k} \dots w_{i-1})\]
+	Each component in the product is approximated
+	\[P(w_i |w_1w_2\dots w_{i-1}) \approx P(w_i |w{i-k} \dots w_{i-1})\]
+	\textbf{Bigram model} provides the conditional probability of a word given the previous word.
+	\[P(w_i |w_1w_2 \dots w_{i-1})\approx P(w_i |w_{i-1})\]
+	The bigram model can be extended to trigrams, 4-grams, 5-grams, \dots , n-grams.\\
+	$P(w_i |w_{i-1}$ is the maximum likelihood estimation in a bigram where 
+	\[P(w_{i}|w_{{i-1}})=\frac{count(w_{{i-1}},w_{i})} {count(w_{{i-1}})}\]
+	\textbf{Example}\\
+	Lets consider the following text:\\
+	Hi I am John\\
+	Hi John I am David\\
+	Hi I am looking for John
+
+	\[P(I|HI)\ = \frac{2}{3} = 0.67\]
+	The probabilities of the sentence ``I like Italian food'' estimated by a bigram model is:
+	\[P(like|I) \times P(Italian|like) \times P(food|Italian)= 0.00042\]
+	To avoid underflow and to make multiplication faster, we use log space.
+	\[log( p_1 \times p_2 \times p_3 \times p_4 ) = log p_1 + log p_2 + log p_3 + log p_4\]
+
+
+
+	\section{Training the Language Model}
+	In our approach we use the 3-Gram model, we tried the 4-Gram and the 5-Gram but there was no significant difference. As we said before, we differentiate between natural language and code, therefore, we create a language model for each as we can see in \cref{trainingLm}.\\
+
+	\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=\textwidth]{trainingLm}
+	\caption{Training Language Model overview}
+	\label{trainingLm}
+	\end{figure}
+	\newpage
+	\begin{itemize}
+		\item \textbf{Natural Language}: Once we have identify the text part of a document, we remove the stop words, since they are common words and they add noise to the LM, then we train the \emph{Natural Language LM} with the filtered text.
+		\item \textbf{Code}: For the code part we use ANTLR\footnote{\url{http://www.antlr.org}} parser, then we remove all separators, since they add noise to the LM. \cref{FilterLM}\\
+		The reason why we decide to remove the separators is because we had several situations, where a three curly brackets $\}\}\}$ or two curly brackets and any character $x\}\}$ were the most familiar 3-Gram. To avoid this noise we remove the separators from the code.
+	\end{itemize}
+	
+	
+
+
+
+	\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=\textwidth]{FilterLM}
+	\caption{Filtering stop words and separators}
+	\label{FilterLM}
+	\end{figure}
+
+
+	\section{Accounting for Readability}
+	
 \chapter{Study Design}
 	\section{Research Questions}
 	\section{Data Collection and Analysis}	
@@ -258,12 +349,6 @@ Recommender systems for software developers have become increasingly popular in 
 \chapter[Short title]{A chapter title which will run over two lines --- it's for
   testing purpose}
 
-\lipsum[1-2]
-
-\section{The first section}
-\lipsum[3-4]
-
- \section{The second, math section}
 
 \textbf{Theorem 1 (Residue Theorem).}
 Let $f$ be analytic in the region $G$ except for the isolated singularities $a_1,a_2,\ldots,a_m$. If $\gamma$ is a closed rectifiable curve in $G$ which does not pass through any of the points $a_k$ and if $\gamma\approx 0$ in $G$ then
@@ -278,7 +363,7 @@ Let $f$ be analytic in the region $G$ except for the isolated singularities $a_1
 
 \section[third]{A very very long section, titled ``The third section'', with
   a rather  short text alternative (third)}
-\lipsum \texttt{Some Test}
+
 \lstset{language=algebra,linewidth=0.95\linewidth,breaklines=true,numbers=left,
 basicstyle=\ttfamily,numberstyle=\tiny,escapeinside={//*}{\^^M},
 mathescape=true}
@@ -307,9 +392,6 @@ else insert(delete(c,j),i); //*\label{end-axioms}
 end
 \end{lstlisting}
 
-As you can easily see from the above listing \citet{bbggs:iet07}
-define something weird based on the BPEL specification
-\citep{bpelspec}.
 
 \nocite{*}
 
@@ -317,7 +399,6 @@ define something weird based on the BPEL specification
 
 \chapter{Some retarded material}
 \section{It's over\dots}
-\lipsum 
 
 \backmatter
 
