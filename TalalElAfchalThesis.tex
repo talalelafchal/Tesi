@@ -25,6 +25,8 @@ morecomment=[l]{//s},
 \begin{committee}
 \advisor{Prof.}{Michele}{Lanza} %compulsory
 \coadvisor{Prof.}{Gabriele}{Bavota}{} %optional
+\coadvisor{Dr.}{Luca}{Ponzanelli}{}
+
 \end{committee}
 \Day{1} %compulsory
 \Month{September} %compulsory
@@ -58,15 +60,15 @@ Recommender systems for software developers have become increasingly popular in 
 \chapter{Introduction}
 
 	\section{Context}
-	Software systems complexity is increasing, and new technologies are introduced constantly. The software developers often have to work with new technologies which they are not familiar with, and as increasingly more comes out, the amount of information that they need to know will increase. Android, for example, was introduced 10 years ago in 2007. Nowadays, there are more than three million applications available on the Google store. \\
+	The complexity of software systems is increasing, and to make them less complex, new technologies are introduced constantly. Software developers often have to work with new technologies which they are not familiar with, and as increasingly more comes out, the amount of information that they need to know will increase. Android\footnote{url{https://www.android.com}}, for example, was introduced 10 years ago in 2007. Nowadays, there are more than three million applications available on the Google store. \\
 	When Android started to become popular, developers had to learn this technology and to stay updated with each new version release. 
 	They had to figure out how activities work in Android, and how to use several APIs to implement different tasks assigned to them. Where do they start from? Is there some tutorial on the web where they can learn how to use a specific API? Where can they find a piece of code that can be reused in their application? \\
-	If we search on Google for an Android tutorial, we will find 22 million documents\footnote{\url{https://www.google.ch/search?site=&source=hp&q=android+tutorial&oq=android+tutorial}}, even if we search for a specific field, as an Android Bluetooth tutorial\footnote{\url{https://www.google.ch/search?client=safari&rls=en&biw=1440&bih=839&q=android+bluetooth+example}}, we get 6 million documents which still a huge number.\\
+	Google is the most popular search engine, where an \emph{Android tutorial} query search, we will return 22 million documents\footnote{\url{https://www.google.ch/search?site=&source=hp&q=android+tutorial&oq=android+tutorial}}, even if we search for a specific field, as an Android Bluetooth tutorial\footnote{\url{https://www.google.ch/search?client=safari&rls=en&biw=1440&bih=839&q=android+bluetooth+example}}, we get 6 million documents which still a huge number.\\
 	Stack Overflow is one of the most popular Q\&A websites for developers, where a million of questions are tagged as Android\footnote{\url{https://stackoverflow.com/questions/tagged/android}}. \\
-	Github hosts more than 500 thousand Android repositories\footnote{\url{https://github.com/search?utf8=✓&q=android&type=}}, with millions of lines of code. Those numbers are gigantic, and it is obvious that finding the most suitable document is not obvious, since given the big number of available documents it is not feasible for the developer to check all of them and choose the right one.\\
-	Therefore, the recommender systems for software engineering are an important support for programmers. They provide the most valuable documents in a given context.\\
+	Github is one of the most popular version control system, where developers can store their projects, and it hosts more than 500 thousand Android repositories\footnote{\url{https://github.com/search?utf8=✓&q=android&type=}}, with millions of lines of code. Those numbers are gigantic, and it is obvious that finding the most suitable document is not obvious, since given the big number of available documents it is not feasible for the developer to check all of them and choose the right one.\\
+	To overcome this problem, recommender systems for software engineering were introduced as an important support for programmers. They provide the most valuable documents in a given context.\\
 
-	We have to introduce the proposed definition by the organizers of the ACM International Conference on Recommender Systems:\footnote{\url{https://recsys.acm.org/recsys09}} \\
+	The proposed definition by the organizers of the ACM International Conference on Recommender Systems:\footnote{\url{https://recsys.acm.org/recsys09}} \\
 
 	  \blockquote{\textit{``Recommendation systems are software applications that aim to support users in their decision-making while interacting with large information spaces. They recommend items of interest to users based on preferences they have expressed, either explicitly or implicitly. The ever-expanding volume and increasing complexity of information [...] has therefore made such systems essential tools for users in a variety of information seeking [...] activities. Recommendation systems help overcome the information overload problem by exposing users to the most interesting items, and by offering novelty, surprise, and relevance.''}}
 	Now that we defined what is a recommender system, we can mention \citet{RecommendationSystemsforSoftwareEngineering} definition of the recommender systems for software engineering (RSSE):\\
@@ -86,48 +88,50 @@ Recommender systems for software developers have become increasingly popular in 
 
 	Understanding a document is a cognitive process, and it depends on the human brain intelligence, but we all agree that if we are familiar with a subject, we will comprehend it with less effort. A computer engineer comprehends a document that explains how to implement a sorting algorithm, with much less effort compared to a document that explains a constitutional law, and the reason is not that the algorithm is not complex, but because a computer engineer is more familiar with sorting algorithms.\\
 	
-	In this study, we go further than this, and we try to evaluate more interesting situations, as for example:\\
-	Given two documents that have the same subject, how can we decide which one is easier to comprehend?\\
+	In this thesis, we try to evaluate less trivial situations, for example:\\
+	Given two documents that have approximately the same subject, how can we decide which one is easier to comprehend?\\
 	In order to answer this question we need to introduce two concepts:
 	\begin{itemize}
-	\item \textbf{familiarity}: how much are we familiar with the document content?
-	\item \textbf{readability}: how difficult is it to read the document?
+	\item \textbf{familiarity}: how much are a developer familiar with the document content?
+	\item \textbf{readability}: how difficult is it to read a given document?
 	\end{itemize}
 	The comprehension effort can be derived from the document familiarity and readability.\\
 
 	For example, if we want to use a tool that gives us a score to indicate which document requires less effort to be comprehended, where a higher score indicates a high effort. And we have two documents where, in the first one we have a sorting algorithm implemented in Java, and in the second one a sorting algorithm implemented in Fortran, and the developer is more familiar with Java.\\
 	We expect that the first document must have a lower score since logically it requires less effort to be comprehended by developers who are more familiar with Java.
-	What if both documents have a sorting algorithm implemented in the same programing language? which one will have a lower score? \\
-	In this case, the document readability will have a big impact on the comprehension effort.\\
-	Certainly, the developer will prefer to read the document with the best readability.\\
+	What if both documents have a sorting algorithm implemented in the same programing language? Which one will have a lower score? \\
+	In this case, the document readability has a big impact on the comprehension effort:\\
+	The developer would likely prefer to read the document with the best readability.\\
 	
 	\section{Objective and Results}
-	Our main goal in this thesis is to assess documents by their comprehension effort, which can be used by RSSE to improve their suggestions.\\
-	In order to calculate the comprehension effort, we need to find a way to calculate the familiarity, and we need to evaluate our approach to understand if it effectively works.\\
+	Our main goal in this thesis is to assess documents by their comprehension effort, which can be leveraged by RSSE to improve their suggestions.\\
+	To calculate the comprehension effort we need to find a way to calculate the familiarity, and we need to evaluate our approach to understand if it effectively works.\\
 
-	 As a first step, we select a big set of Android documents, which represent the hypothetical developer knowledge, where a document can be a mix of code and natural language, then we create a \textbf{ Language Model} and we train it with these documents (training documents). In this way, we are able to simulate a programmer who is familiar with Android. Once we trained the language model, we evaluate the familiarity of a given set of documents (testing documents) that contains Android documents and other documents that are not related to Android.\\ 
+	 As a first step, we select a big set of Android documents, which represents the hypothetical developer knowledge, where a document can be a mix of code and natural language. Then we create a \emph{ Language Model} \cite{Hindle:2012:NS:2337223.2337322} and we train it with these documents (training documents). In this way, we are able to simulate a programmer who is familiar with Android. Once we trained the language model, we evaluate the familiarity of a given set of documents (testing documents) that contains Android documents and other documents that are not related to Android.\\ 
 	 The language model was able to evaluate the Android testing documents as thousand times more familiar than the rest of the testing documents.
 	 In this experiment, the language model approach satisfied our expectation in capturing the document familiarity.\\
 
-	 On the top of this experiment, we did a case study to evaluate our approach in assessing documents by the comprehension effort. In this study we ask programmers to read a set of tutorials, and then we give them a set of documents, where some documents are related to the tutorials and some are not. The developers are just asked to score the documents by the comprehension effort on a scale from 1 to 5 (1$-$low effort 5$-$high effort)
-	 \dots 
+	 On the top of this experiment, we did a case study to evaluate our approach in assessing documents by the comprehension effort. In this study we ask programmers to read a set of tutorials, and then we give them a set of documents, where some documents are related to the tutorials and some are not.
 	 \newpage
+	 The developers are just asked to score the documents by the comprehension effort on a scale from 1 to 5 (1$-$low effort 5$-$high effort)
+	 \dots 
+	
 
 	\section{Structure of the Thesis}
 	This thesis consists of seven chapters: 
 	\begin{enumerate}
 	
-		\item \textbf{Introduction}
-		\item \textbf{State of the Art} describes the existing related work as code search engines, and recommender systems.
-		\item \textbf{Approach} describes our approach to calculate the comprehension effort.
-		\item \textbf{Study design} in this chapter we discuss the research question, the data extraction process, the analysis method, and the replication package 
-		\item \textbf{Result} shows the results and their implication.
-		\item \textbf{Threat to Validity} describes our assumptions, and the possible threats that could affect the results validity.
-		\item \textbf{Conclusion} this chapter is a summarization of our work, where we present some ideas for a possible future work.
+		\item \textbf{Introduction}: In this chapter we introduce the thesis work.
+		\item \textbf{State of the Art}: This chapter describes the existing related work as code search engines, and recommender systems.
+		\item \textbf{Approach}: This chapter describes our approach to calculate the comprehension effort.
+		\item \textbf{Study design}: This chapter discusses the research question, the data extraction process, the analysis method, and the replication package.
+		\item \textbf{Result}: This chapter shows the results and their implication.
+		\item \textbf{Threat to Validity}: This chapter describes our assumptions, and the possible threats that could affect the results validity.
+		\item \textbf{Conclusion}: This chapter is a summarization of our work, where we present some ideas for a possible future work.
 	\end{enumerate}
 \chapter{State of the Art}
 	In this chapter, we talk about the existing related work to the comprehension effort, and we talk about code search engines and recommender systems.\\ 
-
+\section{Comprehension}
 	\citet{Kushwaha:2006:ICI:1163514.1163533} introduced a new equation :\\
 	\begin{center}
 	 \textbf{Difficulty in understanding the software}\\
@@ -220,19 +224,28 @@ Recommender systems for software developers have become increasingly popular in 
 
 
 \chapter{Approach}
+	The volume of online resources is increasing, we can find millions of documents related to one search query. However, how can we suggest the most suitable one to developers? Several elements determine which documents contain valuable information, and one of these elements is the comprehension effort.\\
  The most frequent developer activity is code search \cite{Singer-1997}, and most searches focus on code that is familiar to the developer\cite{Sadowski:2015}. Certainly, developers prefer to search for documents they are familiar with since they require less effort to be comprehended. We believe that the comprehension effort is strictly related to the document familiarity and readability.\\
  So far many studies were done on the text readability (Flesch$-$Kincaid, Dale$-$Chall), and code readability \cite{Buse:2010:LMC:1850489.1850615}, but in this thesis, we introduce for the first time a new approach to calculate a document familiarity.\\
 
 	
-	\section{Overview}
-	The volume of online resources is increasing, we can find millions of documents related to one search query. However, how can we suggest the most suitable one to developers? Several elements determine which documents contain valuable information, and one of these elements is the comprehension effort.\\
-	We derive the comprehension effort from the document \textit{readability} and \textit{familiarity}.\\
-
-	Each document contains natural language or code or both of them, therefore, we calculate the readability and the familiarity separately as shown in \cref{fig1}. 
-	In order to extract code and natural language from a document, we use Stormed Island Parser\footnote{\url{https://stormed.inf.usi.ch}} \cite{Ponz2015a}.\\
-	\newpage
-	On the other hand, we use a language model to calculate the familiarity of a document, Flesch$-$Kincaid to calculate the text readability, RayKernel \cite{Buse:2010:LMC:1850489.1850615} to calculate the code readability.
 	
+	\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=12cm, height=\textheight]{overview}
+	\caption{Overall architecture of our approach}
+	\label{overview}
+	\end{figure}
+	\newpage
+\section{Overview}
+
+	\cref{overview} shows the overall architecture of our approach. As we can see, we have two \emph{language models}, one for code and one for text (natural language), and the whole process can be seen as two phases that work in parallel: 
+	\begin{itemize}
+		\item \textbf{Assessing phase}  Each document contains natural language or code or both of them, therefore, we calculate the readability and the familiarity separately as shown in \cref{fig1}. 
+		In order to extract code and natural language from a document, we use Stormed Island Parser\footnote{\url{https://stormed.inf.usi.ch}} \cite{Ponz2015a}.\\
+		On the other hand, we use a language model to calculate the familiarity of a document, Flesch$-$Kincaid to calculate the text readability, RayKernel \cite{Buse:2010:LMC:1850489.1850615} to calculate the code readability.
+		\item \textbf{Training phase} where each document is broken down in two segments: code and text. The \emph{code language model} will be trained with the code segment, and the \emph{text language model} will be trained with the text segment.
+	\end{itemize}
 
 	\begin{figure}[htbp]
 	\centering
@@ -241,8 +254,11 @@ Recommender systems for software developers have become increasingly popular in 
 	\label{fig1}
 	\end{figure}
 
-	\section{Stormed Island Parser}
+	In the next sections we explain the training and assessing phase, and we give more details about the component that are used in the whole process.
 
+\newpage
+	\section{Stormed Island Parser}
+	
 	 Stormed is a dataset for Stack Overflow that models the posts by building a heterogeneous abstract syntax tree H-AST for each discussion in the data dump \cite{Ponz2015a}.  The H-AST nodes model the contents of a Stack Overflow discussions according to the kind of structured fragment it represents. As shown in \cref{stackOverflow} each Stack Overflow document is represented with HTML tag, Stormed extracts two types of information units:
 	 	 \begin{itemize}
 		\item \textbf{Text Unit}: textual part of a discussion. Text units are all fragments that are not tagged as <code>	
@@ -272,9 +288,9 @@ Recommender systems for software developers have become increasingly popular in 
 	\caption{Stormed Object Model of the dataset}
 	\label{stormed}
 	\end{figure}
-\newpage
-	Stormed provides us with a complete damp of Stack Overflow discussions, where each discussion is modeled as a heterogeneous abstract syntax, which allows us to distinguish between the textual part (natural language), and the code part. Moreover, Stormed parses the code part and identifies the Java code even if the code is incomplete.
 
+	Stormed provides us with a complete damp of Stack Overflow discussions, where each discussion is modeled as a heterogeneous abstract syntax, which allows us to distinguish between the textual part (natural language), and the code part. Moreover, Stormed parses the code part and identifies the Java code even if the code is incomplete.
+	\newpage
 	\section{Language Model}
 
 	A \textbf{Probabilistic Language Model (LM)} is a probability distribution over sequences of words. Given such a sequence of length m, it assigns a probability $P(w_{1},\ldots ,w_{m})$ to the whole sequence\footnote{\url{https://en.wikipedia.org/wiki/Language_model}}.\\
@@ -314,16 +330,14 @@ Recommender systems for software developers have become increasingly popular in 
 	\caption{Training Language Model overview}
 	\label{trainingLm}
 	\end{figure}
-	\newpage
+
+
 	\begin{itemize}
-		\item \textbf{Natural Language}: Once we have identify the text part of a document, we remove the stop words, since they are common words and they add noise to the LM, then we train the \emph{Natural Language LM} with the filtered text.
-		\item \textbf{Code}: For the code part we use ANTLR\footnote{\url{http://www.antlr.org}} parser, then we remove all separators, since they add noise to the LM. \cref{FilterLM}\\
-		The reason why we decide to remove the separators is because we had several situations, where a three curly brackets $\}\}\}$ or two curly brackets and any character $x\}\}$ were the most familiar 3-Gram. To avoid this noise we remove the separators from the code.
+		\item \textbf{Natural Language}: Once we have identify the textual part  of a document, we remove the stop words, since they are common words and they add noise to the LM, then we train the \emph{Natural Language LM} with the filtered text.
+		\item \textbf{Code}: For the code part we use a similar process. We use ANTLR\footnote{\url{http://www.antlr.org}} parser to parse the code, then we remove all separators, since they add noise to the LM. \cref{FilterLM}\\
+		The reason why we decide to remove the separators is because we had several situations, where a three curly brackets $\}\}\}$ or two curly brackets with any character $x\}\}$ were the most familiar 3-Gram. To avoid this noise we remove the separators from the code.
 	\end{itemize}
 	
-	
-
-
 
 	\begin{figure}[htbp]
 	\centering
@@ -333,7 +347,147 @@ Recommender systems for software developers have become increasingly popular in 
 	\end{figure}
 
 
-	\section{Accounting for Readability}
+	\section{Familiarity}
+	We define the familiarity as the estimation of likelihood of a specified character sequence. But before estimating the familiarity, we need to do the following preprocessing steps:
+	\begin{itemize}
+		\item \textbf{Selecting \& Filtering}: As we did in the training phase, we use Stormed Island Parser\footnote{\url{https://stormed.inf.usi.ch}} \cite{Ponz2015a} to break down a document into text and code. We remove the stop words form the text, we parse the code\footnote{\url{http://www.antlr.org}} and we remove the separators, as shown in \cref{FilterLM}
+		\item \textbf{3-Grams generating }: In \cref{3gram-generating} we can see that each chunk of code or text is transformed to a 3-Gram model, and then we calculate the familiarity of each N-Gram as shown in \cref{3gram-evaluating}.
+			
+			\begin{figure}[htbp]
+			\centering
+			\includegraphics[width=\textwidth]{3gram-generating}
+			\caption{3-Gram generating process}
+			\label{3gram-generating}
+			\end{figure}
+
+			\begin{figure}[htbp]
+			\centering
+			\includegraphics[width=\textwidth]{3gram-evaluating}
+			\caption{3-Gram evaluating process}
+			\label{3gram-evaluating}
+			\end{figure}	
+	
+	
+		\item \textbf{Familiarity aggregation}: Now that we have retrieved the familiarity of each 3-Gram of a given document, we need to aggregate them in one value. The trivial way is to multiply all the probabilities to get one value, but this approach is biased by the document length.\\
+		As we can see in \cref{aggregation-by-multiplication} we have 2 documents, a and b, where \emph{document b} contains twice {document a}s' text. We expect to have the familiarity in both documents must be the same since they have the same text, even if in \emph{document b} the text is duplicated.\\ 
+			\end{itemize}
+		\begin{figure}[htbp]
+			\centering
+			\includegraphics[width=\textwidth]{aggregation-by-multiplication}
+			\caption{Aggregating probabilities by multiplication}
+			\label{aggregation-by-multiplication}
+			\end{figure}
+
+
+			\begin{figure}[htbp]
+			\centering
+			\includegraphics[width=\textwidth]{aggregation-by-mean}
+			\caption{Aggregating probabilities by mean}
+			\label{aggregation-by-mean}
+			\end{figure}
+		
+		Given a set of documents with different length, the shortest documents turns out to be the most familiar. This approach is valid if all documents have the same length, which is not the case with the documents that we are dealing with, since they have heterogeneous length. 
+		\newpage
+		We tackle this problem by introducing a new approach to aggregate the probabilities \cref{aggregation-by-mean}.
+		The approach consists 5 steps: 
+		\begin{itemize}
+			\item \textbf{step 1}: We select from the set the document with the smallest number of 3-Gram, say of length m.
+			\item \textbf{step 2}: We split each document into chunks of length m.
+			\item \textbf{step 3}: For each chunk we calculate the familiarity of its 3-Grams
+			\item \textbf{step 4}: Now that all chunks have the same size, we calculate the familiarity of a chunk by multiplying the probability of all its 3-Grams
+			\item \textbf{step 5}: Is the last step, where the familiarity of a document is derived from the mean of its chunks familiarity.
+		\end{itemize}
+
+\section{Readability} 
+	The document readability has a big impact on the comprehension effort. Two text documents can contain approximately the same information, but one text can be easy to read and the other one can be difficult to read, and it is the same for code. The following peace of code can be written on one line :
+
+	\lstset{language=algebra,linewidth=0.95\linewidth,breaklines=true,numbers=left,
+	basicstyle=\ttfamily,numberstyle=\tiny,escapeinside={//*}{\^^M},
+	mathescape=true}
+	\begin{lstlisting}
+{"name":"mkyong.com","messages":["msg 1","msg 2"],"age":100}
+
+	\end{lstlisting}
+
+	
+	But most likely developers will find it easier to read the indented code:\\
+
+	 	\begin{lstlisting}
+{
+	"name":"mkyong.com",
+	"messages":["msg 1","msg 2"],
+	"age":100
+}
+	\end{lstlisting}
+ 
+	As mentioned so far we distinguish between \emph{code readability} and \emph{text readability}. Therefor, we use different tools to calculate the readability of each. 
+\newpage
+\subsection{Accounting for Text Readability}
+	The text readability score is calculated by the \textbf{Flesch-Kincaid} \footnote{\url{https://en.wikipedia.org/wiki/Flesch–Kincaid_readability_tests}} formula:
+	
+
+	\[0.39\left({\frac  {{\mbox{total words}}}{{\mbox{total sentences}}}}\right)+11.8\left({\frac  {{\mbox{total syllables}}}{{\mbox{total words}}}}\right)-15.59\]
+	A higher scores indicate that the document is easier to read and a lower number indicates that the document is more difficult to read.\\ 
+	Flesch-Kincaid score is scaled in 0-100 rage, but for convenience we normalize it to 0-1 range.The score can be interpreted as shown in the table below.
+	
+	\begin {table}[H]
+	\begin{center}
+    \begin{tabular}{| l | l | p{7cm} | }
+    \hline
+    \textbf{Score} & \textbf{School Level} & \textbf{Notes} \\ \hline
+    $100.0-90.0$ & 5th grade & Very easy to read. Easily understood by an average 11-year-old student.\\ \hline
+    $90.0-80.0$ & 6th grade & Easy to read. Conversational English for consumers.\\ \hline
+ 	$80.0-70.0$ & 7th grade & Fairly easy to read. \\ \hline
+	$70.0-60.0$ & 8th \& 9th grade & Plain English. Easily understood by 13- to 15-year-old students.\\ \hline
+	$60.0-50.0$ & 10th to 12th grade &  Fairly difficult to read.\\ \hline
+	$50.0-30.0$ & College & Difficult to read.\\ \hline
+	$30.0-0.0$ & College Graduate & Very difficult to read. Best understood by university graduates\\\hline
+
+    \end{tabular}
+	\end{center}
+	\caption{Flesch-Kincaid score grade} \label{tab:Flesch-Kincaid} 
+	\end{table}
+
+\subsection{Accounting for Code Readability}
+
+	To calculate the code readability we use \citet{Buse:2010:LMC:1850489.1850615} code readability metric, and tool\footnote{\url{http://www.arrestedcomputing.com/readability}}.
+	 Buse and Weimer determined a set of code features that are predictive of readability. The features are listed in the \cref{tab:Buse and Weimer}.
+
+	\begin {table}[H]
+	\begin{center}
+    \begin{tabular}{ | l | }
+    \hline
+    \textbf{Feature Name}\\ \hline
+	line length (\# characters)\\ \hline
+ 	\# identifiers\\ \hline
+ 	identifier length\\ \hline
+	indentation (preceding whitespace)\\ \hline
+	\#keywords\\ \hline
+	 \#numbers\\ \hline
+	\#comments\\ \hline
+	\#periods\\ \hline
+	\#commas\\ \hline
+	\#spaces\\ \hline
+	\#parenthesis\\ \hline
+	 \#arithmetic operators\\ \hline
+	 \#comparison operators\\ \hline
+	 \#assignments (=)\\ \hline
+	 \#branches (if)\\ \hline
+	 \#loops (for, while)\\ \hline
+	 \#blank lines\\ \hline
+	 \#occurrences of any single character\\ \hline
+	 \#occurrences of any single identifier\\ \hline
+    \end{tabular}
+	\end{center}
+		\caption{Buse and Weimer code features \\ (Read “\#” as “number of ...”)} \label{tab:Buse and Weimer} 
+	\end{table}
+
+	Buse and Weimer's readability score is scaled in 0-1 range, where a higher scores indicate that the code is easier to read and a lower number indicates that the code is more difficult to read.
+
+
+\section{Accounting Comprehension Effort }
+
+\[\frac{(r_{c}\times f_{c}) + (r_{t} \times f_{t})}{2} \]
 	
 \chapter{Study Design}
 	\section{Research Questions}
@@ -364,41 +518,13 @@ Let $f$ be analytic in the region $G$ except for the isolated singularities $a_1
 \section[third]{A very very long section, titled ``The third section'', with
   a rather  short text alternative (third)}
 
-\lstset{language=algebra,linewidth=0.95\linewidth,breaklines=true,numbers=left,
-basicstyle=\ttfamily,numberstyle=\tiny,escapeinside={//*}{\^^M},
-mathescape=true}
-\begin{lstlisting}
-import IntSpec, ItemSpec;
-
-sort cart; //*\label{sort}
-
-constructors //*\label{begin-sig}
-create() $\longrightarrow$ cart;
-insert(cart, item) $\longrightarrow$ cart;
-observers
-amount(cart) $\longrightarrow$ int;
-transformers
-delete(cart, item) $\longrightarrow$ cart; //*\label{end-sig}
-
-axioms //*\label{begin-axioms}
-forall c: cart, i, j: item 
-
-amount(create()) $=$ 0; //*\label{begin-amount}
-amount(insert(c,i)) $=$ amount(c) $+$ price(i); //*\label{end-amount}
-delete(create(),i) $=$ create(); //*\label{begin-delete}
-delete(insert(c,i),j) $=$
-if (i =$\:$= j) c
-else insert(delete(c,j),i); //*\label{end-axioms}
-end
-\end{lstlisting}
 
 
 \nocite{*}
 
 \appendix %optional, use only if you have an appendix
 
-\chapter{Some retarded material}
-\section{It's over\dots}
+
 
 \backmatter
 
