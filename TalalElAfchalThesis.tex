@@ -109,7 +109,7 @@ Recommender systems for software engineering have become increasingly popular in
 	
 	\section{Objective and Results}
 	Our main goal in this thesis is to assess documents by their comprehension effort, which can be leveraged by RSSE to improve their suggestions.
-	To calculate the comprehension effort we need to find a way to calculate the familiarity, and we need to evaluate our approach to understand if it effectively works.
+	To calculate the comprehension effort we need to find a way to compute the familiarity, and we need to evaluate our approach to understand if it effectively works.
 	To evaluate our approach we run two studies:\\
 
 	 In the first study we evaluate our familiarity approach. We select a big set of Android documents, which represents the hypothetical developer knowledge, where a document can be a mix of code and natural language. Then we create a \emph{ Language Model} \cite{Hindle:2012:NS:2337223.2337322} and we train it with these documents (training set). In this way, we are able to simulate the context of a developer who is familiar with Android. Once we trained the language model, we evaluate the familiarity of a given set of documents (testing set) that contains Android documents and other documents that are not related to Android.
@@ -561,34 +561,34 @@ To calculate the \emph{Comprehension Effort} of a given document we calculate:
  \[\text{Comprehension Effort = }\frac{(r_{c}\times f_{c}) + (r_{t} \times f_{t})}{2} \]
  In this formula the \emph{readability} and the \emph{familiarity} have the same weight in calculating the \emph{comprehension effort}
  \[\text{Comprehension Effort = }\frac{(r_{c}\times f_{c}) + (r_{t} \times f_{t})}{r_c+r_t} \]
- In this formula the \emph{familiarity} has a higher weight, but we decided to explore the first formula in this thesis.
+ In this formula the \emph{familiarity} has a higher weight, but we decided to explore the first formula in this thesis and the second one in future research.
 	
 \chapter{Study Design}
 
-	The goal of our study is to assess the LM capability to evaluate the familiarity of a given document, and to evaluate the effectiveness of our approach in assessing documents by the comprehension effort. Towards this goal, we run two tailored studies:
+	In this chapter we present two studies aimed of assessing the LM capability to evaluate the familiarity of a given document, and to evaluate the effectiveness of our approach in assessing documents by the comprehension effort. Towards this goal, we run two tailored studies:
 	
 
-	The first study evaluates the familiarity approach. In this study (Experiment-1) we select a set of Android documents, which represents the developer knowledge context, then we train the LMs with these documents (the training procedure is described in Chapter 3.2). Once we trained the language model, we evaluate the familiarity of a given set of documents (testing documents) that contains Android documents and other documents that are not related to Android (the familiarity accounting is described in Chapter 3.3.1). 
+	The first study evaluates the familiarity approach. In this study (Experiment-1) we select a set of Android documents representing the developer knowledge context, and we train the LMs with these documents (Chapter 3.2). Once we trained the language model, we evaluate the familiarity of a given set of documents about Android and other documents that are not related to Android (Chapter 3.3.1). 
 		
 
-	 The second study evaluates our approach in assessing documents by the comprehension effort. In this study (Experiment-2) we ask developers to read a set of tutorials, and then we give them a set of documents, where some documents are related to the tutorials and some are not, and we ask them to score the documents by the comprehension effort on a scale from 1 to 5. Then we compare their score with our precomputed comprehension effort score (the comprehension effort accounting is described in Chapter 3.4).
+	 The second study evaluates our approach in assessing documents by comprehension effort. In this study (Experiment-2) we ask developers to read a set of tutorials, and then we give them a set of documents, where some documents are related to the tutorials and some are not, and we ask them to score the documents comprehension effort on a scale from 1 to 5. Then we compare their score with our precomputed comprehension effort score (Chapter 3.4).
 
 
 	\section{Research Questions}
 	To evaluate the effectiveness of our approach we have formulated the following research questions:
 	\newpage
 
-	 \textbf{RQ1}: \emph{Can a language model evaluate correctly the familiarity of a given document?}
+	 \textbf{RQ1}: \emph{Can a language model correctly evaluate the familiarity of a given document?}
 
 
-		We have answered this research question by downloading 200,000 Stack Overflows' questions tagged as Android. From these 200,000 documents we select 5 training sets with different size (10, 100, 1000, 10000, 100000), and we select 1000 documents for testing.
+		We have answered this research question by downloading 200,000 Stack Overflow questions tagged as Android. From these 200,000 documents we select 5 training sets with different size (10, 100, 1000, 10000, 100000), and we select 1000 documents for testing.
 
 
 		We extend the testing set by downloading: 
 		\begin{itemize}
-			\item 1000 Stack OVerflows' questions tagged as JavaScript.
-			\item 1000 Stack OVerflows' questions tagged as Swift.
-			\item 1000 Stack OVerflows' questions tagged as Java.
+			\item 1000 Stack OVerflow questions tagged as JavaScript.
+			\item 1000 Stack OVerflow questions tagged as Swift.
+			\item 1000 Stack OVerflow questions tagged as Java.
 		\end{itemize}
 
 		We create a code LM and a text LM, and we train them with the Android 10 documents training set, then we calculate the familiarity of the testing sets
@@ -598,17 +598,17 @@ To calculate the \emph{Comprehension Effort} of a given document we calculate:
 		{\textbf{RQ2}: \emph{What is the accuracy of our technique in assessing documents by the comprehension effort?}
 
 
-		To answer this research question we asked two developers who has no experience with android to read a set of introduction tutorials to Android, then we asked them to read two Android tutorials, the first one explains how to use \emph{Android-Bluetooth} API and the second one explains how to use \emph{Android-Camera} API. Once they have finished reading the tutorials we asked them to score the comprehension effort of 6 documents from Stack Overflow. The comprehension effort scores are on a scale of 0 to 5, where a higher score indicates a higher effort in comprehending the documents. The developers scored the following 6 documents:
+		To answer this research question we asked two developers who has no experience with Android to read a set of introduction tutorials to Android, then we asked them to read two Android tutorials, the first one explains how to use the \emph{Android-Bluetooth} API and the second one explains how to use the \emph{Android-Camera} API. Once they have finished reading the tutorials we asked them to score the comprehension effort of 6 documents from Stack Overflow. The comprehension effort scores are on a scale from 0 to 5, where a higher score indicates a higher effort in comprehending the documents. The developers scored the following 6 documents:
 
 		\begin{itemize}
-			\item   Android-Bluetooth discussion.
-			\item   Android-Camera discussion.
-			\item   Android-AsyncTask discussions (not related to \emph{Bluetooth} or \emph{Camera}).
-			\item   Android-Database discussions (not related to \emph{Bluetooth} or \emph{Camera}).
-			\item   2 Cordova discussions. (Cordova also known as PhoneGap is a mobile application development framework that enables software developers to build applications for mobile devices using CSS3, HTML5, and JavaScript).
+			\item   Android-Bluetooth discussion\footnote{\url{https://stackoverflow.com/questions/9693755}}.
+			\item   Android-Camera discussion.\footnote{\url{https://stackoverflow.com/questions/5991319}}
+			\item   Android-AsyncTask discussions (not related to \emph{Bluetooth} or \emph{Camera}) \footnote{\url{https://stackoverflow.com/questions/31874990}}.
+			\item   Android-Database discussions (not related to \emph{Bluetooth} or \emph{Camera})\footnote{\url{https://stackoverflow.com/questions/17451931}}.
+			\item   2 Cordova discussions. (Cordova also known as PhoneGap is a mobile application development framework that enables software developers to build applications for mobile devices using CSS3, HTML5, and JavaScript)\footnote{\url{https://stackoverflow.com/questions/20835768}} \footnote{\url{https://stackoverflow.com/questions/10023328}}.
 		\end{itemize}
 
-		In the meanwhile, we train the LMs with the tutorials that we gave to the developers. But since the tutorials are not enough to train a LM, we augment the set by adding several tutorials that have the same subject as the one that we gave to the developers. We also train the code LM with as set of \emph{Android-Bluetooth} and \emph{Android-Camera} code snippets from \emph{Gists}\footnote{\url{https://gist.github.com/}}.
+		We train the LMs with the tutorials that we gave to the developers. Since the tutorials are not enough to train a LM, we augment the set by adding several tutorials that have the same subject as the one that we gave to the developers. We also train the code LM with as set of \emph{Android-Bluetooth} and \emph{Android-Camera} code snippets from \emph{Gist}\footnote{\url{https://gist.github.com/}}.
 
 
 		 After the training phase we calculate the comprehension effort of the 6 Stack Overflow documents and we compare our results with the developers scores.
@@ -617,20 +617,22 @@ To calculate the \emph{Comprehension Effort} of a given document we calculate:
 
 	\section{Data Collection}	
 
-	\subsection{Experiment-1 Data Extraction}
+	To run the two experiments we collect and extract data from different sources. In the next sections we explain how we collect data for each experiment.
 
-	Stormed dataset provides us with a set of JSON files, one for each discussion. We use Scala API to parse the JSON files and obtain objects corresponding to the H-AST.
-	As we mentioned in the previous section, in Experiment-1 for the training set we select a set of 100,000 Android discussions, and for the testing set we select a set of 1000 Android discussions. These sets are retrieved from Stormed dataset, where we select discussions that are tagged only as Android, and the training and testing sets are disjoint.
+	\subsection{Experiment-1}
 
-	We also use Stormed dataset to select the JavaScript, Swift and Java discussions that we add to the testing set. We selected Java discussions that are not also tagged as Android to avoid having Android discussions in the Java set, since Android is implemented in Java.
+	Stormed dataset provides us with a set of JSON files, one for each discussion. We use Stormed development kit to parse the JSON files and obtain objects corresponding to the H-AST.
+	As we mentioned in the previous section, in Experiment-1 for the training set we select a set of 100,000 Android discussions, and for the testing set we select a set of 1000 Android discussions. These sets are retrieved from the Stormed dataset, where we select discussions that are tagged only as Android, and the training and testing sets are disjoint.
 
-	\subsection{Experiment-2 Data Extraction}
+	We also use Stack Overflow dump\footnote{\url{https://archive.org/details/stackexchange}} to select the JavaScript, Swift and Java discussions that we add to the testing set. We selected Java discussions that are not also tagged as Android to avoid having Android discussions in the Java set, since Android is implemented in Java.
+
+	\subsection{Experiment-2}
 	
-	As mentioned before, in Experiment-2 we have a set of 4 tutorials that introduce Android to developers, and give them an overview of how Android works. These tutorials are  selected from \emph{tutorialspoint} website\footnote{\url{https://www.tutorialspoint.com/android/}}. 
+	In Experiment-2 we have a set of 4 tutorials that introduce Android to developers, and give them an overview of how Android works. These tutorials are  selected from the \emph{tutorialspoint} website\footnote{\url{https://www.tutorialspoint.com/android/}}. 
 
 	To augment the training set we select 4 Android introduction tutorials, 7 \emph{Android-Bluetooth}, 6 \emph{Android-Camera} tutorials from several websites. The tutorials are parsed by Stormed and passed to the LMs.  
 
-	Besides the Android tutorials, we augment the training set by selecting from Gists 525 \emph{Android-Bluetooth}, 2666 \emph{Android-Camera} code snippets.
+	Besides the Android tutorials, we augment the training set by selecting from Gist 525 \emph{Android-Bluetooth}, 2666 \emph{Android-Camera} code snippets.
 
  	\section{Replication Package}
 
@@ -640,15 +642,15 @@ To calculate the \emph{Comprehension Effort} of a given document we calculate:
  	The Thesis work is publicly accessible on this link : \url{https://github.com/talalelafchal/familiarity/tree/Aggregation}. The repository contains:
  	\begin{itemize}
  	\item Testing and training sets used in Experiment-1
- 	\item Tutorials, Stack Overflow discussions and Gits files used in Experiment-2
+ 	\item Tutorials, Stack Overflow discussions and Gist files used in Experiment-2
  	\item Experiment-1 results in \emph{.csv} files with the R script to plot the results.
  	\item Experiment-2 results.
- 	\item The code source.
+ 	\item The source code.
  	\end{itemize} 
 
 
 \chapter{Results}
-	In this Chapter we show and discuss the evaluation results of our familiarity and comprehension effort estimating approach.
+	In this Chapter we present and discuss the evaluation results of our familiarity and comprehension effort estimating approach.
 
 \section{Familiarity Estimation Results}
 
@@ -657,44 +659,7 @@ To evaluate our approach in estimating familiarity, we train two LMs (one for co
 We select 5 training sets with different size (10, 1000, 1000, 10000, 100000) to understand how the training set size can influence the performance. In the following sections we discuss the code LM results and the text LM results.
 
 \subsection{Code LM Results}
-  As a first step in the experiment, we train the code LM with 10 Android documents and we evaluate the code familiarity of the testing set. In Fig \ref{code10}, we can see the box plot result, where JavaScript and Swing documents are estimated as more familiar than Android documents. The reason why Android is not estimated as the most familiar is because 10 documents are too few to train a LM. 
-
-% \begin{figure}[H]
-% \centering
-% \begin{subfigure}{.5\textwidth}
-%   \centering
-%   \includegraphics[width=\linewidth, height=6cm]{code10}
-%   \caption{A subfigure}
-%   \label{fig:sub1}
-% \end{subfigure}%
-% \begin{subfigure}{.5\textwidth}
-%   \centering
-%   \includegraphics[width=\linewidth,height=7cm]{code100}
-%   \caption{A subfigure}
-%   \label{fig:sub2}
-% \end{subfigure}
-% \label{fig:test}
-% \end{figure}
-	
-
-
-% \begin{figure}[H]
-% \centering
-% \begin{minipage}{.5\textwidth}
-%   \centering
-%   \includegraphics[width=\linewidth,height=6cm]{code10}
-%   \captionof{figure}{A figure}
-%   \label{fig:test1}
-% \end{minipage}%
-% \begin{minipage}{.5\textwidth}
-%   \centering
-%   \includegraphics[width=\linewidth,height=6cm]{code100}
-%   \captionof{figure}{Another figure}
-%   \label{fig:test2}
-% \end{minipage}
-% \end{figure}
-
-
+  As a first step in the experiment, we train the code LM with 10 Android documents and we evaluate the code familiarity of the testing set. In Fig \ref{code10}, we show the box plot result. The $y$ axis represents the \emph{Log} estimated familiarity, where a higher box position indicates a lower familiarity. In this plot we can see that JavaScript and Swing documents are estimated as more familiar than Android documents. The reason why Android is not estimated as the most familiar is because 10 documents are too few to train a LM. 
 
 
 
@@ -732,9 +697,9 @@ With a training set of 1000 Android documents we start observing some changes, a
 			\caption{Code LM trained with 10000 documents}
 			\label{code10000}
 			\end{figure}		
-In Fig \ref{code10000}, we can see that with a training set of 10 thousand documents, Android is estimated as the most familiar, followed by Java; then Swing and JavaScript are clearly less familiar.
+In Fig \ref{code10000}, we can see that with a training set of 10,000 documents, Android is estimated as the most familiar, followed by Java; then Swing and JavaScript are clearly less familiar.
 
-This result reflects our expectation, where Android is expected to be the most familiar, since the training set contains only Android documents, and as Android is implemented in Java we expected that Java should be more familiar than JavaScript and Swing.
+This result reflects our expectation, where Android is expected to be the most familiar, since the training set contains only Android documents, and as Android is implemented in Java we expected that Java should be more familiar than JavaScript and Swing. We have to mention that the familiarity result is logarithmic, therefore a small difference between the boxes position has to be interpreted as a big difference between the familiarity of the boxes.  
 
 \begin{figure}[H]
 			\centering
@@ -743,14 +708,14 @@ This result reflects our expectation, where Android is expected to be the most f
 			\label{code100000}
 \end{figure}	
 
- We also train the code LM with a set of 100 thousand Android documents and as we can see in Fig \ref{code100000}, the result is similar to Fig \ref{code10000} (where the training set contains 10 thousand documents).
+ We also train the code LM with a set of 100,000 Android documents and as we can see in Fig \ref{code100000}, the result is similar to Fig \ref{code10000} (where the training set contains 10,000 documents).
 
 These results infer that a LM can capture the familiarity of code, and bigger is the training set better is the performance.
 
 
 \subsection{Text LM Results}
 
- As we did for the Code LM, we train the text LM with 10, 100, 1000, 10 thousand and 100 thousand Android documents, and for each training set we estimate the familiarity of the testing set.\newpage
+ As we did for the Code LM, we train the text LM with 10, 100, 1000, 10,000 and 100,000 Android documents, and for each training set we estimate the familiarity of the testing set.\newpage
 	
 In Fig \ref{text10} and Fig \ref{text100}, we can see that Android documents are not the most familiar documents, and the reason is the small size of the training set (10 in Fig \ref{text10} and 100 in Fig \ref{text100}).
 
@@ -768,7 +733,7 @@ In Fig \ref{text10} and Fig \ref{text100}, we can see that Android documents are
 			\label{text100}
 \end{figure}
 
-In Fig \ref{text1000}, we can see that when we train the text LM with 1000 Android documents, Android is estimated as more familiar than Java and JavaScript, and in Figure \ref{text10000} we train the code LM with 10 thousand documents which estimate Android as the most familiar.
+In Fig \ref{text1000}, we can see that when we train the text LM with 1000 Android documents, Android is estimated as more familiar than Java and JavaScript, and in Figure \ref{text10000} we train the code LM with 10,000 documents which estimate Android as the most familiar.
 
 \begin{figure}[H]
 			\centering
@@ -784,7 +749,7 @@ In Fig \ref{text1000}, we can see that when we train the text LM with 1000 Andro
 			\label{text10000}
 \end{figure}
 
-We get the expected result when we train the text LM with as set of 100 thousand documents. In Fig \ref{text100000}, we can see that Android is the most familiar and then Java which is more familiar than JavaScript and Swing.
+We get the expected result when we train the text LM with as set of 100000 documents. In Fig \ref{text100000}, we can see that Android is the most familiar and then Java which is more familiar than JavaScript and Swing.
 \begin{figure}[H]
 			\centering
 			\includegraphics[width=\textwidth]{text100000}
@@ -803,7 +768,7 @@ To evaluate our comprehension effort estimation, we ask two developers to read 4
 	\begin{center}
     \begin{tabular}{| l | l | l | l | l | l | l | l |}
     \hline
-\textbf{Tutorial}	&  \textbf{$F_{c}$}	& \textbf{$F_{t}$}	& \textbf{$R_c$}	& \textbf{$R_t$}	& \textbf{Effort}	& \textbf{ Score 1}&  \textbf{Score 2}\\ \hline
+\textbf{Tutorial}	&  \textbf{$F_{c}$}	& \textbf{$F_{t}$}	& \textbf{$R_c$}	& \textbf{$R_t$}	& \textbf{Effort}	& \textbf{ Dev 1}&  \textbf{Dev 2}\\ \hline
 Bluetooth   & -2694.64	& -377.42	& 0.1979 	& 0.5439	& 1166.6	& 1	& 1\\ \hline
 Camera		& -2794.77	& -309.74	& 0.1570	& 0.4713	& 1259.8	& 2	& 2\\ \hline
 AsyncTask	& -3446.07	& -265.87	& 0.2537	& 0.5301	& 1348.2	& 3	& 3\\ \hline
@@ -824,9 +789,56 @@ We estimate \emph{Cordova-1} and \emph{Cordova-2} to require the highest effort.
 
 
 The evaluation results suggest that our approach is promising in estimating the comprehension effort of developers. 
+
+
+\section{Summary}
+To evaluate our familiarity estimation approach, we run an experiment where we evaluate the LM efficiency in estimating the familiarity of a given document. In this experiment we tried different training sets sizes, and the results showed that 10 or 100 training documents are not enough to build a LM able to capture the familiarity. The LM needs larger set to perform well. With a training set of 10,000 documents we got a very good performance. Lager is the training set better is the LM performance.
+
+To evaluate the comprehension effort estimation approach, we ask two developers to read a set of tutorials and then to score a set of StackOverflow discussions and we compare their score with our precomputed score. The results indicate that our score match with the developers score, therefore we believe that our approach is promising in estimating the comprehension effort.
+
+
 \chapter{Threats to Validity}
+\section{Experiment-1}
+
+Two potential threats to validity concern the training and testing sets in Experiment-1.
+The experiment is based on training LMs on Android discussions and evaluating the familiarity of different testing sets (Android, Java, Swing, JavaScript). The experiment considers only Android framework to show that LMs are efficient in estimating Android familiarity, but we didn't run other studies to evaluate our approach on different frameworks. To generalize our approach we need to evaluate other frameworks or even other programming languages. We will investigate this further in future research.
+
+The testing and training sets are StackOverflow discussions, where documents contain code snippets and text. In this experiment, the code LM is trained on small and some times incomplete code. If we run this experiment in a different context as any system where the code is complete and much bigger than Stack Overflow discussions, we might have different performance in estimating the familiarity.
+
+\section{Experiment-2}
+In Experiment-2, the main threats are related to the data set size. In this study, we asked two developers who have no experience with Android framework to read a set of 6 Android tutorials (training set) and to score the comprehension effort of a set of Stack Overflow discussions (testing set). To compare the developers' scores with our estimation we trained the LMs with the same training set. But as we mentioned in Chapter 5.1 the LM requires a large training set to perform well, and 6 tutorials are too few. Therefore, we trained the code LM  with a large set of Gist code snippets that have the same subject as the tutorials. This procedure can introduce some inconsistency since the training set that we gave to LMs is different form the one that we gave to the developers.
+
+In this experiment, we compare our comprehension effort estimation with two developers scores. In order to generalize our approach, we need to run our experiment on a bigger sample. Furthermore, we couldn't run any statistical analysis as calculating the precision and accuracy of our approach because the sample size is too small, but this experiment is a starting point which suggests that our approach is promising in estimating the comprehension effort. We will investigate this further in future research.
+
+
+
 
 \chapter{Conclusion}
+
+In this thesis, we have presented and evaluated the first approach in the literature able to assess documents by comprehension effort. The comprehension effort is based on the readability and the familiarity of the document. We have conducted a study over 100,000 Stack Overflow documents aimed to evaluate the language model efficiency to estimate the familiarity of a given document. The achieved results have shown that language model is able to estimate the familiarity and we noticed that its performance is tightly related to the training set size. The best results have been achieved with a training set size $\ge$ 10,000 Stack Overflow documents.
+
+In addition, we have conducted a study to evaluate our approach in estimating the comprehension effort. The sample size was not big enough to generalize the findings of your study, but the achieved results suggest that our approach is promising in estimating the comprehension effort.
+
+In the future studies aimed at replicating our work, we advise running the familiarity evaluation experiment on a different framework or programing language. For example, to train a LM on Java and to evaluate its efficiency in predicting the familiarity of Java and a C++ sets, where these two programing languages have a similar syntax. 
+
+
+We also advise running the comprehension effort evaluation experiment on a large sample in order to generalize our estimating approach. Moreover, we encourage future works to explore the alternative comprehension effort estimating formula that we proposed in Chapter 3.4 :
+ \[\text{Comprehension Effort = }\frac{(r_{c}\times f_{c}) + (r_{t} \times f_{t})}{r_c+r_t} \] 
+where \emph{familiarity} has a higher weight, and to compare its precision and accuracy with the formula that we used in our experiment:
+
+ \[\text{Comprehension Effort = }\frac{(r_{c}\times f_{c}) + (r_{t} \times f_{t})}{2} \]
+ 
+where the \emph{readability} and the \emph{familiarity} have the same weight.
+
+
+We also suggest the RSSE as LIBRA to take advantage of our comprehension effort metric to improve their suggestions.
+
+Finally, it is important to note that the comprehension effort metric described in this thesis is not intended as the final model where only the readability and familiarity of a document determine the 
+required human effort to comprehend it. Other metrics, (e.g., cyclomatic complexity) can be explored and added to readability and familiarity metrics to compute the comprehension effort.
+
+
+
+
 
 % \chapter[Short title]{A chapter title which will run over two lines --- it's for
 %   testing purpose}
