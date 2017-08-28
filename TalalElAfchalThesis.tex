@@ -11,6 +11,35 @@
 
 \usepackage{subfig}
 
+
+\usepackage[T1]{fontenc}
+\usepackage{inconsolata}
+
+\usepackage{color}
+
+\definecolor{pblue}{rgb}{0.13,0.13,1}
+\definecolor{pgreen}{rgb}{0,0.5,0}
+\definecolor{pred}{rgb}{0.9,0,0}
+\definecolor{pgrey}{rgb}{0.46,0.45,0.48}
+
+\usepackage{listings}
+\lstset{language=Java,
+  showspaces=false,
+  showtabs=false,
+  breaklines=true,
+  showstringspaces=false,
+  breakatwhitespace=true,
+  commentstyle=\color{pgreen},
+  keywordstyle=\color{pblue},
+  stringstyle=\color{pred},
+  basicstyle=\ttfamily,
+  moredelim=[il][\textcolor{pgrey}]{$$},
+  moredelim=[is][\textcolor{pgrey}]{\%\%}{\%\%}
+}
+
+
+
+
 \lstdefinelanguage{algebra}
 {morekeywords={import,sort,constructors,observers,transformers,axioms,if,
 else,end},
@@ -68,10 +97,10 @@ Recommender systems for software engineering have become increasingly popular in
 	When Android started to become popular, developers had to learn this technology and stay updated with each new release.
 	They had to search how activities work in Android, and how to use several APIs to implement different tasks assigned to them.
 	However, the process of searching the right piece of information as a tutorial or a documentation is time-consuming and requires considerable effort.
-	For example, if an Android developer needs to use a new Android API that is completely new to her. She will search for web artifacts such as forums, blogs, questions and answers (Q\&A) websites, and API documentation \cite{Sim:2011:WSE:2063239.2063243}.
+	For example, if an Android developer needs to use a new Android API that is completely new to her, she will search for web artifacts such as forums, blogs, questions and answers (Q\&A) websites, and API documentation \cite{Sim:2011:WSE:2063239.2063243}.
 
 
-	The amount of resources is vast, a popular Q\&A websites as Stack Overflow contains a million of questions tagged as Android\footnote{\url{https://stackoverflow.com/questions/tagged/android}}. Github, one of the most popular version control system where developers can store their projects, hosts more than 500 thousand Android repositories\footnote{\url{https://github.com/search?utf8=✓&q=android&type=}}, with millions of lines of code which can be an important resource.
+	The amount of resources is vast, a popular Q\&A website as Stack Overflow contains millions of questions tagged as Android\footnote{\url{https://stackoverflow.com/questions/tagged/android}}. Github, one of the most popular version control system where developers can store their projects, hosts more than 500 thousand Android repositories\footnote{\url{https://github.com/search?utf8=✓&q=android&type=}}, with millions of lines of code which can be an important resource.
 
 
 	A tool helping developers to gather information among the available resources would ideally improve the search process, that would result in time saved for the developers.
@@ -93,7 +122,7 @@ Recommender systems for software engineering have become increasingly popular in
 	Therefore, we believe that RSSE has to take into consideration the familiarity of a document when they suggest it to the developer. 
 
 	
-	Understanding a document is a cognitive process, and it depends on the human brain intelligence, yet if we are familiar with a subject, we will likely comprehend it with less effort. For example, a computer engineer might comprehend a document explaining how to implement a sorting algorithm, with much less effort compared to a document that explains a constitutional law, and the reason is not that the algorithm is simple, but because a computer engineer is more familiar with sorting algorithms than law.
+	Understanding a document is a cognitive process, and it depends on the human brain intelligence, yet if we are familiar with a subject, we will likely comprehend it with less effort. For example, a computer engineer might comprehend a document explaining how to implement a sorting algorithm, with much less effort compared to a document that explains a constitutional law, and the reason is not that the algorithm is simple, rather a computer engineer is more familiar with sorting algorithms than law.
 	
 
 	In this thesis, we try to evaluate similar situations. For example, given two documents that have approximately the same subject, how can we decide which one is easier to comprehend? To answer this question we need to introduce two concepts:
@@ -101,14 +130,14 @@ Recommender systems for software engineering have become increasingly popular in
 	\item \textbf{Familiarity}: how much are developers familiar with the document content?
 	\item \textbf{Readability}: how difficult is it to read a given document?
 	\end{itemize}
-	The familiarity and readability metrics are important for us, since the comprehension effort can be derived from the document familiarity and readability.\\
+	The familiarity and readability metrics are important for us, since the comprehension effort can be derived from the document familiarity and readability.
 	For example, if we want to use a tool that gives us a score to indicate which document requires less effort to be comprehended, where a higher score indicates a high effort, and we have two documents where, in the first one we have an Android task implemented in Android 7.1 and in the other document we have the same task implemented in Android 4.0, and the developer is familiar with Android 7.1.
 	We expect that the first document must have a lower score since logically it requires less effort to be comprehended by developers who are more familiar with Android 7.1.
 	What if both documents have the same task, and both tasks are implemented with the Android 7.1 ? Which one will have a lower score? 
 	In this case, the document readability has a big impact on the comprehension effort: The developer would likely prefer to read the document with the best readability.\\
 	
 	\section{Objective and Results}
-	Our main goal in this thesis is to assess documents by their comprehension effort, which can be leveraged by RSSE to improve their suggestions.
+	Our main goal in this thesis is to assess documents by their comprehension effort which can be leveraged by RSSE to improve their suggestions.
 	To calculate the comprehension effort we need to find a way to compute the familiarity, and we need to evaluate our approach to understand if it effectively works.
 	To evaluate our approach we run two studies:\\
 
@@ -134,7 +163,7 @@ Recommender systems for software engineering have become increasingly popular in
 		\item \textbf{Conclusion}: This chapter summarizes our work, and presents some ideas for a possible future work, and concludes the thesis.
 	\end{enumerate}
 \chapter{State of the Art}
-	In this chapter, we present the existing related work to the comprehension effort, and discuss other related tools, as code search engines and recommender systems.
+	In this chapter, we present the existing related work concerning the comprehension effort, and discuss other related tools, as code search engines and recommender systems.
 \section{Program Comprehension}
 	There are several studies on program comprehension and in this section we mention few of them, that are related to the thesis work. \\
 
@@ -143,7 +172,7 @@ Recommender systems for software engineering have become increasingly popular in
 	This paper motivates us to investigate and develop a novel technique to calculate the comprehension effort.
 	\newpage
 
-	Another related work is by \citet{Kushwaha:2006:ICI:1163514.1163533}  who claim that the required effort to understand a software depends on the difficulty in understanding the information, where the information is related to the number of operators and identifiers. They count the number of operators and identifiers per line of code and they multiply it by an associated weight of the identifier name ( 1 if the identifier name belongs to the problem domain, and 4 is the identifier name is selected arbitrarily). 
+	Another related work is by \citet{Kushwaha:2006:ICI:1163514.1163533}  who claim that the required effort to understand a software depends on the difficulty in understanding the information, where the information is related to the number of operators and identifiers. They count the number of operators and identifiers per line of code and they multiply it by an associated weight of the identifier name (1 if the identifier name belongs to the problem domain, and 4 if the identifier name is selected arbitrarily). 
 
 
 	They performed an experiment on 60 students, where 5 sample programs were given. One set of programs had meaningful identifier names related to the problem domain and the other used arbitrarily selected identifier name. They measured the required time to comprehend the program.
@@ -162,23 +191,25 @@ Recommender systems for software engineering have become increasingly popular in
 	46 developers to carefully read and to fully understand eight code snippets. Participants could, in any moment select the option \textit{I understood the snippet} or \textit{I cannot understand the snippet}, and the time was monitored.
 	Once the participant choosed \textit{I understood the snippet} option, the authors asked questions about the code snippet to verify the actual level of understanding.
 
-	After an extensive statistical analysis \citet{Scalabrino} couldn't find a significant correlation between the considered metrics and the understandability of code snippets.
-	They assumed that the code complexity has a big influence on the developer' ability to understand the code, but they couldn't demonstrate it with a strong empirical evidence.They also mentioned that the code readability can have a direct impact on the understandability of the code.\\ As mentioned in the previous chapter, in this thesis we take in consideration the code readability to calculate the comprehension effort.\\
+	After an extensive statistical analysis \citet{Scalabrino} could not find a significant correlation between the considered metrics and the understandability of code snippets.
+	They assumed that the code complexity has a big influence on the developer' ability to understand the code, but they could not demonstrate it with a strong empirical evidence.They also mentioned that the code readability can have a direct impact on the understandability of the code.
+
+	As mentioned in the previous chapter, in this thesis we take in consideration the code readability to calculate the comprehension effort.\\
 
 	\citet{Buse2010} introduced a code readability metric, and they investigate its relation to software quality. A part of their work was to run an experiment which compared readability of the code to the cyclomatic complexity, and they were able to show that code readability is significantly independent of the traditional code complexity.
 
 
-	In this experiment, 120 developers were asked to individually score a sequence of 100 code snippets, based on their personal estimation of readability. From the result, they determined which code features were predictive of readability, and they construct a readability model. They also tested the model performance on ten different classifiers, and on average the model classified correctly between 75\% and 80\% of the snippets.They found that factors like \textit{average line length} and, \textit{average number of identifiers per line} are very important to readability.In this thesis we use \citet{Buse2010} approach to calculating code readability.
+	In this experiment, 120 developers were asked to individually score a sequence of 100 code snippets, based on their personal estimation of readability. From the result, they determined which code features were predictive of readability, and they construct a readability model. They also tested the model performance on ten different classifiers, and on average the model classified correctly between 75\% and 80\% of the snippets. They found that factors like \textit{average line length} and, \textit{average number of identifiers per line} are very important to readability.In this thesis we use \citet{Buse2010} approach to calculating code readability.
 
 	\section{Semantic code search and code search engines }
 
 	\citet{Reiss:2009:SCS:1555001.1555040} presented a tool that generates specific functions or classes from the open source repositories, where these classes meet user's specifications. This tool uses the user's input, as keywords and other constraints, and suggests codes that meet the user's needs.
 
 
-	The tool takes a set of candidate solutions, and it transforms it into a more appropriate set. Both static and dynamic specifications can be used. This tool main goal is to satisfy the user's constraint, but it does not take into consideration the user's experience and the comprehension effort.\\
+	The tool takes a set of candidate solutions, and it transforms them into a more appropriate set. Both static and dynamic specifications can be used. The main goal of this tool is to satisfy the user's constraints, but it does not take into consideration the user's experience and the comprehension effort.\\
 	
 
-	\citet{Thummalapenta:2007:PPA:1321631.1321663} presented \emph{PARSEWeb} a tool similar to \citet{Reiss:2009:SCS:1555001.1555040}, where they collect code from public sources and search engine suggest it to the developer based on their input query.\\ In the query, the developers have to specify the \textit{source object type} and the \textit{destination object type}.  For example, programmers know what type of object that they need to instantiate like \emph{QueueConnectionFactory} (Source), but do not know how to write code to get that object from a known object type like \emph{QueueSender} (Destination). Therefore, the proposed problem can be translated to a query of the form \emph{QueueConnectionFactory} \rightarrow \emph{QueueSender}.
+	\citet{Thummalapenta:2007:PPA:1321631.1321663} presented \emph{PARSEWeb} a tool similar to \citet{Reiss:2009:SCS:1555001.1555040}, where they collect code from public sources and search engine suggest it to the developer based on their input query. In the query, the developers have to specify the \textit{source object type} and the \textit{destination object type}.  For example, programmers know what type of object that they need to instantiate like \emph{QueueConnectionFactory} (Source), but do not know how to write code to get that object from a known object type like \emph{QueueSender} (Destination). Therefore, the proposed problem can be translated to a query of the form \emph{QueueConnectionFactory} \rightarrow \emph{QueueSender}.
 
 	\citet{McMillan:2011:FRF:1985793.1986032} created an application search system called \textit{Exemplar}, which reduce the mismatch between the high-level intent reflected in the descriptions of software and low-level implementation details.
 
@@ -209,52 +240,56 @@ Recommender systems for software engineering have become increasingly popular in
 	\item Code queries are the mostl used types of queries
 	\item Code queries lead to the most of the downloads
 	\end{itemize}
-	they conclude the analysis by mentioning that usage behavior is similar between Koders and search on the Web, and the majority of the users don't refine their existing queries.\\
+	they conclude the analysis by mentioning that usage behavior is similar between Koders and search on the Web, and the majority of the users do not refine their existing queries.\\
 
 	The approaches described so far, do not take into consideration any readability or familiarity metrics. We believe that our comprehension effort metric can be integrated in in these search engines as complementary information to help the user in choosing the must relevant document.
 	
 	\section{Recommender Systems for Software Engineering}
 
-	\citet{Cubranic:2003:HRP:776816.776866} built Hipikat, a tool that helps newcomer to become productive more quickly, by recommending existing artifacts from the development that are relevant to a task that the newcomer is trying to perform. Hipikat infers links between the artifacts that may have been apparent at one time to members of the development team but that were not recorded, and then Hipikat uses this links to suggest possibly relevant parts of the group memory given information about a task a newcomer is trying to perform.\\
-	The authors performed two qualitative studies, where they show that Hipikat approach helped newcomers to perform a task effectively on an unfamiliar system.\\
+	\citet{Cubranic:2003:HRP:776816.776866} built \emph{Hipikat}, a tool that helps newcomer to become productive more quickly by recommending existing artifacts from the development that are relevant to a task that the newcomer is trying to perform. \emph{Hipikat} infers links between the artifacts that may have been apparent at one time to members of the development team but that were not recorded. Then \emph{Hipikat} uses this links to suggest possibly relevant parts of all artifacts that have been produced given information about a task a newcomer is trying to perform.
 
 
-	\citet{Holmes:2005:USC:1062455.1062491}  built the Strathcona tool, a plug-in for the Eclipse integrated development environment (IDE), the tool extracts the structural context of the code on which a developer is working, and selects from an example repositories a set of relevant code examples to be returned using a set of structural matching heuristics.
+	The authors performed two qualitative studies, where they show that \emph{Hipikat} approach helped newcomers to perform a task effectively on an unfamiliar system.\\
+
+
+	\citet{Holmes:2005:USC:1062455.1062491}  presented \emph{Strathcona}, a plug-in for the Eclipse integrated development environment (IDE) that extracts the structural context of the code on which a developer is working, and selects from an example repositories a set of relevant code examples to be returned using a set of structural matching heuristics.
 
 
 	To understand if the structural matching heuristics can return examples that a developer finds useful, \citet{Holmes:2005:USC:1062455.1062491} performed a case study in which they asked two developers to complete four programming tasks, where Subject 1 had less than one month of Eclipse plug-in programming experience but more than eight years of Java experience. Subject 2 had over six months of Eclipse plug-in programming experience but only eighteen months of experience with Java, and neither subject knew how to implement any of the assigned tasks.
-	Subject 1 completed all four tasks successfully, finding relevant examples in all cases for which appropriate examples were returned; Subject 2 completed three out of four tasks, finding relevant examples in two of the three cases. These results show that Strathcona can suggest relevant examples to developers.\\
+	Subject 1 completed all four tasks successfully, finding relevant examples in all cases for which appropriate examples were returned; Subject 2 completed three out of four tasks, finding relevant examples in two of the three cases. These results show that \emph{Strathcona} can suggest relevant examples to developers.\\
 
-	\citet{Ponz2014b} built the Prompter tool, a plug-in for the Eclipse integrated development environment (IDE), that retrieves and recommends, with push notifications, relevant Stack Overflow discussions to the developer. Prompter analyzes the code context in the IDE and searches for Stack Overflow discussions, evaluates their relevance by taking into consideration \emph{code aspects}, \emph{conceptual aspects}, \emph{community aspects}.
-
-
-	The authors performed a study to evaluate to what extent the use of Prompter can be useful to developers during a development or maintenance task. In the study they selected 12 participants that have at least 3 years of experience in programming, with a maximum of 12. The authors asked the participants to perform one maintenance task and one development task, and then the authors asked them if they have used the suggestions by Prompter. Three participants answered \emph{absolutely yes}, eight \emph{more yes than no}, and two \emph{more no than yes}.
+	\citet{Ponz2014b} presented \emph{Prompter}, a plug-in for the Eclipse IDE that retrieves and recommends, with push notifications, relevant Stack Overflow discussions to the developer. \emph{Prompter} analyzes the code context in the IDE and searches for Stack Overflow discussions, and evaluates their relevance by taking into consideration \emph{code aspects}, \emph{conceptual aspects}, \emph{community aspects}.
 
 
-	Ponzanelli et al. concluded their work by mentioning that Prompter ranking model resulted to be effective in identifying the right discussions given a code snippet to analyze.\\
+	The authors performed a study to evaluate to what extent the use of \emph{Prompter} can be useful to developers during a development or maintenance task. In the study they selected 12 participants that have at least 3 years of experience in programming, with a maximum of 12. The authors asked the participants to perform one maintenance task and one development task, and if they used the suggestions by \emph{Prompter}. Three participants answered \emph{absolutely yes}, eight \emph{more yes than no}, and two \emph{more no than yes}.
+
+
+	The authors concluded their work by mentioning that \emph{Prompter} ranking model resulted to be effective in identifying the right discussions given a code snippet to analyze.\\
 
 
 	
-	In a following paper \citet{Ponz2017a} created LIBRA, a holistic recommender system that supports developers in their information search in the web browser. The developers are tracked during their activities in the IDE and in the web browser, which allows Libra to collect information as web search results, perused pages, and code written and modified by the developer. LIBRA uses this information to model a knowledge context of the developer and, constructs a holistic meta-information model of their contents.
+	In a following work \citet{Ponz2017a} created \emph{Libra}, a holistic recommender system that supports developers in their information search in the web browser. The developers are tracked during their activities in the IDE and in the web browser, which allows \emph{Libra} to collect information as web search results, perused pages, and code written and modified by the developer. \emph{Libra} uses this information to model a knowledge context of the developer and, constructs a holistic meta-information model of their contents.
 	
 
-	LIBRA is based on three important metrics :
+	\emph{Libra} is based on three important metrics :
 	
 	\begin{itemize}
 	\item \textbf{Context Complementarity} measures the information intake provided by a resource in the current context of the developer. A low context complementarity indicates that the resource information is already a part of the context. In other words, the resource and the context are too similar, and the amount of new information that the developer can retrieve is low.
 	
-	\item \textbf{Result Prominence} identifies prominent results among the search engine result set. When a query matches a result, it doesn't tell us so much about the result relevance. If a result overlaps with many other results, it would be more prominent, since probably it provides diversified information in its contents.
+	\item \textbf{Result Prominence} identifies prominent results among the search engine result set. When a query matches a result, it does not tells much about the result relevance. If a result overlaps with many other results, it would be more prominent, since probably it provides diversified information in its contents.
 	
-	\item \textbf{Information Quantity} sums up the number of ``elements'' identified by LIBRA's meta-information system. This metric is important to distinguish which resource has more information giving two resources with a similar number of characters. If the first resource has only text and the second one has text and code, obviously the second resource contains a higher information quantity.
+	\item \textbf{Information Quantity} sums up the number of ``elements'' identified by \emph{Libra}'s meta-information system. This metric is important to distinguish which resource has more information giving two resources with a similar number of characters. If the first resource has only text and the second one has text and code, obviously the second resource contains a higher information quantity.
 	\end{itemize}
-	16 third year CS Bachelor students were asked to evaluate LIBRA in terms of \textit{its ability in correctly assessing for each query search result its prominence and complementarity with respect to the context, and usefulness to developers during a development or maintenance task.}\\
-	The study results indicated that both prominence and complementarity indicators reflect developers’ perception of such measures, and are considered as useful indicators. Moreover, students  achieved a significantly better task completeness with LIBRA.\\
+	16 third year CS Bachelor students were asked to evaluate \emph{Libra} in terms of \textit{its ability in correctly assessing for each query search result its prominence and complementarity with respect to the context, and usefulness to developers during a development or maintenance task.}
 
-	The work that has been done in this thesis can be integrated with RSSE as LIBRA, where the comprehension effort metric can be added to the other three metrics used by LIBRA to provide developers with the most relevant documents.
+
+	The study results indicated that both prominence and complementarity indicators reflect developers’ perception of such measures, and are considered as useful indicators. Moreover, students  achieved a significantly better task completeness with \emph{Libra}.\\
+
+	The work that has been done in this thesis can be integrated with RSSE as \emph{Libra}, where the comprehension effort metric can be added to the other three metrics used by \emph{Libra} to provide developers with the most relevant documents.
 
 
 \chapter{Approach}
-	The volume of online resources is increasing, we can find millions of documents related to one search query. How can we suggest the most suitable one to developers? Several elements might determine which documents contain valuable information, and one of these elements is the comprehension effort. Code search has been a part of software development for decades, \citet{Singer-1997} reported in 1997 that the most frequent developer activity was code search, and most searches focus on code that is familiar to the developer \cite{Sadowski:2015}. Certainly, developers prefer to search for documents they are familiar with since they require less effort to be comprehended. We believe that the comprehension effort is strictly related to the document familiarity and readability.
+	The volume of online resources is huge as we can find millions of documents related to one search query. How can we suggest the most suitable one to developers? Several elements might determine which documents contain valuable information, and one of these elements is the comprehension effort. Code search has been a part of software development for decades, \citet{Singer-1997} reported in 1997 that the most frequent developer activity was code search, and most searches focus on code that is familiar to the developer \cite{Sadowski:2015}. Certainly, developers prefer to search for documents they are familiar with since they require less effort to be comprehended. We believe that the comprehension effort is strictly related to the document familiarity and readability.
      
     In the literature there are several metrics that estimate the readability of a given text, (e.g., Flesch$-$Kincaid \cite{Kincaid}, Dale$-$Chall \cite{Dale-Chall}), and other metrics that estimate code readability \cite{Buse:2010:LMC:1850489.1850615}. In this thesis, we introduce for the first time a new approach where we combine text readability, code readability and document familiarity, to estimate comprehension effort.\\
 
@@ -291,16 +326,18 @@ Recommender systems for software engineering have become increasingly popular in
 	 \subsubsection{Stormed Parser}
 	 Stormed can parse any given data in form of text. For example, given the following text : 
 	 \begin{verbatim} With a sorted array, the condition data[c] >= 128  \end{verbatim} 
-	 Stormed can identify  \emph{``With a sorted array, the condition''} as text, and \\``$data[c] >= 128$'' as code. 
+	 Stormed can identify  \emph{``With a sorted array, the condition''} as text, and ``$data[c] >= 128$'' as code. 
 
 
-	 Stormed gives us more detailed information about the code, that can be one of the following possible structured fragments:
+	 Stormed gives us more detailed information about the code, that can be one of the following possible H-AST nodes:
 	 \begin{itemize}
 	 \item \textbf{JavaASTNode}: Java code including incomplete fragments.
 	 \item \textbf{StackTracesASTNode}: Stack traces including incomplete stack trace lines.
 	 \item \textbf{XMLASTNode}: XML/HTML documents, tags and elements.
 	 \item \textbf{JSONASTNode}: JSON fragments.
 	 \end{itemize}
+
+	 Stormed allows us to distinguish between the textual part (natural language), and the code part. Moreover, Stormed parses the code part and identifies the Java code even if the code is incomplete.
 
 	 \subsubsection{Stormed Dataset}
 
@@ -325,14 +362,13 @@ Recommender systems for software engineering have become increasingly popular in
 	% \label{stormed}
 	% \end{figure}
 
-	The extracted units are modeled as a H-AST, and added to the data set. The Stormed data contains a set of JSON files, one for each Stack Overflow discussion. The JSON files can be parsed to obtain objects corresponding to the H-AST. \\
-
-	
-	Stormed allows us to distinguish between the textual part (natural language), and the code part. Moreover, Stormed parses the code part and identifies the Java code even if the code is incomplete.
+	The content of the extracted units are modeled as a H-AST, and added to the data set. The Stormed data contains a set of JSON files, one for each Stack Overflow discussion. The JSON files can be parsed to obtain objects corresponding to the H-AST.
 
 	\subsection{Language Model}
 
-	A \textbf{Probabilistic Language Model (LM)} is a probability distribution over sequences of words. Given such a sequence of length m, it assigns a probability $P(w_{1},\ldots ,w_{m})$ to the whole sequence\footnote{\url{https://en.wikipedia.org/wiki/Language_model}}.\\
+	A \textbf{Probabilistic Language Model (LM)} is a probability distribution over sequences of words. Given such a sequence of length m, it assigns a probability $P(w_{1},\ldots ,w_{m})$ to the whole sequence\footnote{\url{https://en.wikipedia.org/wiki/Language_model}}.
+
+
 	The goal of the language model is to compute the probability of a sentence or sequence of words.
 	\[P(W) = P(w_{1},w_2,w_3,w_4,w_5\dots w_n)\]
 	A LM can also compute the probability of an upcoming word.
@@ -377,20 +413,26 @@ Recommender systems for software engineering have become increasingly popular in
 		\item \textbf{Code LM training}: For the code part we use a similar approach. We use ANTLR\footnote{\url{http://www.antlr.org}} parser to parse the code and to create tokens that we model as 3-Grams, and we pass them to the LM. But before training the LM on the code we remove all separators Fig \ref{FilterLM}.
 
 
-		The reason why we decide to remove separator is because given a code with three nested loops:	
+		The reason why we remove separators is because they add noise. Similar to text punctuation, they do not tell much about the information that a document contains. For example, given a Java class code:	
 
-		\begin{lstlisting}
-for(int a in list){
-	for(int b in list){
-		for(int c in list){
-			System.out.println(a + b + c)
-		}
-	}
+\begin{lstlisting}
+public class Example {
+  void multiply(int a, int b) {
+    if(a == 0 || b == 0){
+    System.out.println(0);   		
+    }
+  else{
+    int result = a * b;
+    System.out.println(result);
+    }
+  }
 }
 
 		\end{lstlisting}
 
-		The code ends with three curly brackets $\textbf{\}\}\}}$ that form the most popular 3-Gram since it is frequent to have a sequence of brackets or parentheses in code. We had several situation where the most familiar 3-Gram was three brackets, for this reason we decide to remove this noise by filtering the separators.
+		We can see that the code ends with three curly brackets $\textbf{\}\}\}}$, and almost all Java calsses end with at least 2 curly brackets. If we do not remove the separators from code, the three curly brackets will form the most popular 3-Gram.
+
+		Before removing the separators, we had several situation where the most familiar 3-Grams is composed by 2 brackets or 2 parenthesis, for this reason we decide to remove this noise by filtering all the separators.
 
 	\end{itemize}
 	
@@ -430,7 +472,9 @@ for(int a in list){
 			\end{figure}	
 	
 	
-		\item \textbf{Familiarity aggregation}: Now that we have retrieved the familiarity of each 3-Gram of a given document, we need to aggregate them in one value. The trivial way is to multiply all the probabilities to get one value, but this approach is biased by the document length.\\
+		\item \textbf{Familiarity aggregation}: Now that we have retrieved the familiarity of each 3-Gram of a given document, we need to aggregate them in one value. The trivial way is to multiply all the probabilities to get one value, but this approach is biased by the document length.
+
+
 		As we can see in Fig \ref{aggregation-by-multiplication} we have 2 documents, a and b, where \emph{document b} contains twice the content of \emph{document a}. We expect that the familiarity in both documents must be the same since they have the same text, even though in \emph{document b} the text is duplicated.\\ 
 			\end{itemize}
 		\begin{figure}[H]
@@ -488,7 +532,9 @@ for(int a in list){
 	
 
 	\[0.39\left({\frac  {{\mbox{total words}}}{{\mbox{total sentences}}}}\right)+11.8\left({\frac  {{\mbox{total syllables}}}{{\mbox{total words}}}}\right)-15.59\]
-	A higher scores indicate that the document is easier to read, and a lower number indicates that the document is more difficult to read.\\ 
+	A higher scores indicate that the document is easier to read, and a lower number indicates that the document is more difficult to read.
+
+
 	Flesch-Kincaid score is scaled in 0-100 rage, but for convenience we normalize it to 0-1 range. The score can be interpreted as shown in the table below, Table \ref{tab:Flesch-Kincaid}.
 	
 	\begin {table}[H]
@@ -513,7 +559,10 @@ for(int a in list){
 	To calculate the code readability we use \citet{Buse:2010:LMC:1850489.1850615} code readability metric, and tool\footnote{\url{http://www.arrestedcomputing.com/readability}}.
 	 Buse and Weimer determined a set of code features that are predictive of readability. The features are listed in the Table \ref{tab:Buse and Weimer}.
 
-	\begin {table}[H]
+
+	Buse and Weimer's readability score is scaled in 0-1 range, where a higher scores indicate that the code is easier to read and a lower number indicates that the code is more difficult to read.
+
+\begin {table}[H]
 	\begin{center}
     \begin{tabular}{ | l | }
     \hline
@@ -540,9 +589,7 @@ for(int a in list){
     \end{tabular}
 	\end{center}
 		\caption{Buse and Weimer code features} \label{tab:Buse and Weimer} 
-	\end{table}
-
-	Buse and Weimer's readability score is scaled in 0-1 range, where a higher scores indicate that the code is easier to read and a lower number indicates that the code is more difficult to read.
+	\end{table}	
 
 
 \section{Accounting Comprehension Effort }
@@ -559,9 +606,9 @@ To calculate the \emph{Comprehension Effort} of a given document we calculate:
  We propose two formulas to calculate the \emph{Comprehension Effort}:
 
  \[\text{Comprehension Effort = }\frac{(r_{c}\times f_{c}) + (r_{t} \times f_{t})}{2} \]
- In this formula the \emph{readability} and the \emph{familiarity} have the same weight in calculating the \emph{comprehension effort}
+ In the above formula the \emph{readability} and the \emph{familiarity} have the same weight in calculating the \emph{comprehension effort}.
  \[\text{Comprehension Effort = }\frac{(r_{c}\times f_{c}) + (r_{t} \times f_{t})}{r_c+r_t} \]
- In this formula the \emph{familiarity} has a higher weight, but we decided to explore the first formula in this thesis and the second one in future research.
+ In the above formula the \emph{familiarity} has a higher weight. In this thesis we decide to explore both formulas to understand which one performs better.
 	
 \chapter{Study Design}
 
@@ -592,20 +639,20 @@ To calculate the \emph{Comprehension Effort} of a given document we calculate:
 		\end{itemize}
 
 		We create a code LM and a text LM, and we train them with the Android 10 documents training set, then we calculate the familiarity of the testing sets
-		(Android, JavaScript, Swift, Java). We repeat this experiment with 100, 1000, 10000, 100000 android training sets to understand how the training set size can influence the performance. Then we plot the familiarity results to check if the LMs classify Android documents as the most familiar.\\
+		(Android, JavaScript, Swift, Java). We repeat this experiment with 100, 1000, 10000, 100000 android documents to understand how the training set size can influence the performance. Then we plot the familiarity results to check if the LMs classify Android documents as the most familiar.\\
 
 
 		{\textbf{RQ2}: \emph{What is the accuracy of our technique in assessing documents by the comprehension effort?}
 
 
-		To answer this research question we asked two developers who has no experience with Android to read a set of introduction tutorials to Android, then we asked them to read two Android tutorials, the first one explains how to use the \emph{Android-Bluetooth} API and the second one explains how to use the \emph{Android-Camera} API. Once they have finished reading the tutorials we asked them to score the comprehension effort of 6 documents from Stack Overflow. The comprehension effort scores are on a scale from 0 to 5, where a higher score indicates a higher effort in comprehending the documents. The developers scored the following 6 documents:
+		To answer this research question we asked two developers who has no experience with Android to read a set of introduction tutorials to Android, then we asked them to read two Android tutorials. The first one explains how to use the \emph{Android-Bluetooth} API and the second one explains how to use the \emph{Android-Camera} API. Once they have finished reading the tutorials we asked them to score the comprehension effort of 6 documents from Stack Overflow. The comprehension effort scores are on a scale from 0 to 5, where a higher score indicates a higher effort in comprehending the documents. The developers scored the following 6 documents:
 
 		\begin{itemize}
 			\item   Android-Bluetooth discussion\footnote{\url{https://stackoverflow.com/questions/9693755}}.
 			\item   Android-Camera discussion.\footnote{\url{https://stackoverflow.com/questions/5991319}}
 			\item   Android-AsyncTask discussions (not related to \emph{Bluetooth} or \emph{Camera}) \footnote{\url{https://stackoverflow.com/questions/31874990}}.
 			\item   Android-Database discussions (not related to \emph{Bluetooth} or \emph{Camera})\footnote{\url{https://stackoverflow.com/questions/17451931}}.
-			\item   2 Cordova discussions. (Cordova also known as PhoneGap is a mobile application development framework that enables software developers to build applications for mobile devices using CSS3, HTML5, and JavaScript)\footnote{\url{https://stackoverflow.com/questions/20835768}} \footnote{\url{https://stackoverflow.com/questions/10023328}}.
+			\item   Two Cordova discussions. (Cordova also known as PhoneGap is a mobile application development framework that enables software developers to build applications for mobile devices using CSS3, HTML5, and JavaScript)\footnote{\url{https://stackoverflow.com/questions/20835768}} \footnote{\url{https://stackoverflow.com/questions/10023328}}.
 		\end{itemize}
 
 		We train the LMs with the tutorials that we gave to the developers. Since the tutorials are not enough to train a LM, we augment the set by adding several tutorials that have the same subject as the one that we gave to the developers. We also train the code LM with as set of \emph{Android-Bluetooth} and \emph{Android-Camera} code snippets from \emph{Gist}\footnote{\url{https://gist.github.com/}}.
@@ -621,7 +668,7 @@ To calculate the \emph{Comprehension Effort} of a given document we calculate:
 
 	\subsection{Experiment-1}
 
-	Stormed dataset provides us with a set of JSON files, one for each discussion. We use Stormed development kit to parse the JSON files and obtain objects corresponding to the H-AST.
+	The Stormed dataset provides a set of JSON files, one for each discussion. We use the Stormed development kit to parse the JSON files and obtain the H-AST.
 	As we mentioned in the previous section, in Experiment-1 for the training set we select a set of 100,000 Android discussions, and for the testing set we select a set of 1000 Android discussions. These sets are retrieved from the Stormed dataset, where we select discussions that are tagged only as Android, and the training and testing sets are disjoint.
 
 	We also use Stack Overflow dump\footnote{\url{https://archive.org/details/stackexchange}} to select the JavaScript, Swift and Java discussions that we add to the testing set. We selected Java discussions that are not also tagged as Android to avoid having Android discussions in the Java set, since Android is implemented in Java.
@@ -777,18 +824,38 @@ Cordova-1	& -4539.99	& -313.44	& 0.3377	& 0.4952	& 1582.5	& 4	& 1\\ \hline
 Cordova-2	& -4429.52	& -273.63	& 0.1579	& 0.4173	& 1944.5	& 2	& 1\\ \hline
    \end{tabular}
 	\end{center}
-	\caption{Comprehension effort evaluation} \label{tab:comprehension-effort} 
+	\caption{Comprehension effort evaluation. Formula-1} 
+	\label{tab:comprehension-effort-1} 
 	\end{table}
 
-In the Table \ref{tab:comprehension-effort} for each tutorial we show our estimation effort, that we derive from the code and text readability and familiarity.
+
+\begin {table}[H]
+	\begin{center}
+    \begin{tabular}{| l | l | l | l | l | l | l | l |}
+    \hline
+\textbf{Tutorial}	&  \textbf{$F_{c}$}	& \textbf{$F_{t}$}	& \textbf{$R_c$}	& \textbf{$R_t$}	& \textbf{Effort}	& \textbf{ Dev 1}&  \textbf{Dev 2}\\ \hline
+Camera		& -2794.77	& -309.74	& 0.1570	& 0.4713	& 1836.9	& 2	& 2\\ \hline
+Bluetooth   & -2694.64	& -377.42	& 0.1979 	& 0.5439	& 1854.6	& 1	& 1\\ \hline
+AsyncTask	& -3446.07	& -265.87	& 0.2537	& 0.5301	& 2217.3	& 3	& 3\\ \hline
+Database	& -3491.46	& -336.06	& 0.2472	& 0.6235	& 2439.5	& 4	& 3\\ \hline
+Cordova-1	& -4539.99	& -313.44	& 0.3377	& 0.4952	& 2712.0	& 4	& 1\\ \hline
+Cordova-2	& -4429.52	& -273.63	& 0.1579	& 0.4173	& 2729.8	& 2	& 1\\ \hline
+   \end{tabular}
+	\end{center}
+	\caption{Comprehension effort evaluation. Formula-2} \label{tab:comprehension-effort-2} 
+	\end{table}
+
+
+In Table \ref{tab:comprehension-effort-1} and Table \ref{tab:comprehension-effort-2} we show our estimation effort for each tutorial. As we mentioned in Chapter 3.4 we explore two formulas to compute the comprehension effort. Formula-1 :
 \[\text{Comprehension Effort = }\frac{(r_{c}\times f_{c}) + (r_{t} \times f_{t})}{2} \]
+ In the above formula the \emph{readability} and the \emph{familiarity} have the same weight in calculating the \emph{comprehension effort}. Formula-2:
+ \[\text{Comprehension Effort = }\frac{(r_{c}\times f_{c}) + (r_{t} \times f_{t})}{r_c+r_t} \]
+ In the above formula the \emph{familiarity} has a higher weight. The tables contain also the developers scores (Dev 1, Dev 2). As we can see in In Table \ref{tab:comprehension-effort-1} and Table \ref{tab:comprehension-effort-2}, our approach estimates \emph{Bluetooth} and \emph{Camera} tutorials as the documents that require less effort to be comprehended, and both developers gave them a low score (1 and 2), we also estimate that \emph{AsyncTask} and \emph{Database} require more effort, and also both developers gave them a higher score (3 and 4).
 
-The table contains also the developers scores (Score 1, Score 2). As we can see, our approach estimates \emph{Bluetooth} and \emph{Camera} tutorials as the documents that require less effort to be comprehended, and both developers gave them a low score (1 and 2), we also estimate that \emph{AsyncTask} and \emph{Database} require more effort, and also both developers gave them a higher score (3 and 4).
+We estimate \emph{Cordova-1} and \emph{Cordova-2} to require the highest effort. The first developer gave them 4 and 2 which still a high score, but the second developer gave them 1, which is a low score. We asked the developer if he can justify the low score that he gave to the \emph{Corodova} documents, and he pointsed out that JavaScript is the programing language that he knows best. Therefore, he is familiar with JavaScript, and Cordova is implemented with JavaScript, which justify the low score.
 
-We estimate \emph{Cordova-1} and \emph{Cordova-2} to require the highest effort. The first developer gave them 4 and 2 which still a high score, but the second developer gave them 1, which is a low score. We asked the developer if he can justify the low score that he gave to the \emph{Corodova}s documents, and he points out that JavaScript is the programing language that he knows best. Therefore, he is familiar with JavaScript, and Cordova is implemented with JavaScript, which justify the low score.
+The results in Table \ref{tab:comprehension-effort-1} and Table \ref{tab:comprehension-effort-2} are similar, the only difference is that Formula-1 estiamtes that the \emph{Camera} document is easier to comprehend compared to the \emph{Bluetooth} document, which match with the developers estimation. Therefore in this experiment Formula-1 performs better. 
 
-
-The evaluation results suggest that our approach is promising in estimating the comprehension effort of developers. 
 
 
 \section{Summary}
@@ -801,40 +868,33 @@ To evaluate the comprehension effort estimation approach, we ask two developers 
 \section{Experiment-1}
 
 Two potential threats to validity concern the training and testing sets in Experiment-1.
-The experiment is based on training LMs on Android discussions and evaluating the familiarity of different testing sets (Android, Java, Swing, JavaScript). The experiment considers only Android framework to show that LMs are efficient in estimating Android familiarity, but we didn't run other studies to evaluate our approach on different frameworks. To generalize our approach we need to evaluate other frameworks or even other programming languages. We will investigate this further in future research.
+The experiment is based on training LMs on Android discussions and evaluating the familiarity of different testing sets (Android, Java, Swing, JavaScript). The experiment considers only Android framework to show that LMs are efficient in estimating Android familiarity, but we did not run other studies to evaluate our approach on different frameworks. To generalize our approach we need to evaluate other frameworks or even other programming languages. We will investigate this further in future research.
 
 The testing and training sets are StackOverflow discussions, where documents contain code snippets and text. In this experiment, the code LM is trained on small and some times incomplete code. If we run this experiment in a different context as any system where the code is complete and much bigger than Stack Overflow discussions, we might have different performance in estimating the familiarity.
 
 \section{Experiment-2}
 In Experiment-2, the main threats are related to the data set size. In this study, we asked two developers who have no experience with Android framework to read a set of 6 Android tutorials (training set) and to score the comprehension effort of a set of Stack Overflow discussions (testing set). To compare the developers' scores with our estimation we trained the LMs with the same training set. But as we mentioned in Chapter 5.1 the LM requires a large training set to perform well, and 6 tutorials are too few. Therefore, we trained the code LM  with a large set of Gist code snippets that have the same subject as the tutorials. This procedure can introduce some inconsistency since the training set that we gave to LMs is different form the one that we gave to the developers.
 
-In this experiment, we compare our comprehension effort estimation with two developers scores. In order to generalize our approach, we need to run our experiment on a bigger sample. Furthermore, we couldn't run any statistical analysis as calculating the precision and accuracy of our approach because the sample size is too small, but this experiment is a starting point which suggests that our approach is promising in estimating the comprehension effort. We will investigate this further in future research.
+In this experiment, we compare our comprehension effort estimation with two developers scores. In order to generalize our approach, we need to run our experiment on a bigger sample. Furthermore, we could not run any statistical analysis as calculating the precision and accuracy of our approach because the sample size is too small, but this experiment is a starting point which suggests that our approach is promising in estimating the comprehension effort. We will investigate this further in future research.
 
 
 
 
 \chapter{Conclusion}
 
-In this thesis, we have presented and evaluated the first approach in the literature able to assess documents by comprehension effort. The comprehension effort is based on the readability and the familiarity of the document. We have conducted a study over 100,000 Stack Overflow documents aimed to evaluate the language model efficiency to estimate the familiarity of a given document. The achieved results have shown that language model is able to estimate the familiarity and we noticed that its performance is tightly related to the training set size. The best results have been achieved with a training set size $\ge$ 10,000 Stack Overflow documents.
+In this thesis, we have presented and evaluated the first approach in the literature able to assess documents by comprehension effort. The comprehension effort is based on the readability and the familiarity of the document. We have conducted a study over 100,000 Stack Overflow documents aimed to evaluate the language model efficiency to estimate the familiarity of a given document. The achieved results have shown that the language model is able to estimate the familiarity and we noticed that its performance is tightly related to the training set size. The best results have been achieved with a training set size $\ge$ 10,000 Stack Overflow documents.
 
-In addition, we have conducted a study to evaluate our approach in estimating the comprehension effort. The sample size was not big enough to generalize the findings of your study, but the achieved results suggest that our approach is promising in estimating the comprehension effort.
+We have conducted a study to evaluate our approach in estimating the comprehension effort. The sample size was not big enough to generalize the findings of your study, but the achieved results suggest that our approach is promising in estimating the comprehension effort. We beleive that the RSSE as \emph{Libra} might take advantage of our comprehension effort metric to improve their suggestions.
 
-In the future studies aimed at replicating our work, we advise running the familiarity evaluation experiment on a different framework or programing language. For example, to train a LM on Java and to evaluate its efficiency in predicting the familiarity of Java and a C++ sets, where these two programing languages have a similar syntax. 
+\section*{Future Work}
 
-
-We also advise running the comprehension effort evaluation experiment on a large sample in order to generalize our estimating approach. Moreover, we encourage future works to explore the alternative comprehension effort estimating formula that we proposed in Chapter 3.4 :
- \[\text{Comprehension Effort = }\frac{(r_{c}\times f_{c}) + (r_{t} \times f_{t})}{r_c+r_t} \] 
-where \emph{familiarity} has a higher weight, and to compare its precision and accuracy with the formula that we used in our experiment:
-
- \[\text{Comprehension Effort = }\frac{(r_{c}\times f_{c}) + (r_{t} \times f_{t})}{2} \]
- 
-where the \emph{readability} and the \emph{familiarity} have the same weight.
+In the future studies aimed at replicating our work, we plan to run the familiarity evaluation experiment on a different framework or programing language. For example, we might train a LM on Java and to evaluate its efficiency in predicting the familiarity of Java and a C++ sets, where these two programing languages have a similar syntax. 
 
 
-We also suggest the RSSE as LIBRA to take advantage of our comprehension effort metric to improve their suggestions.
+We plan to run the comprehension effort evaluation experiment on a larger sample in order to generalize our estimating approach. Moreover with a large sample we can have a better evalaution to understand which effort estiamting folmula performs better.
 
-Finally, it is important to note that the comprehension effort metric described in this thesis is not intended as the final model where only the readability and familiarity of a document determine the 
-required human effort to comprehend it. Other metrics, (e.g., cyclomatic complexity) can be explored and added to readability and familiarity metrics to compute the comprehension effort.
+
+Finally, it is important to note that the comprehension effort metric described in this thesis is not intended as the final model where only the readability and familiarity of a document determine the required human effort to comprehend it. Other metrics, (e.g., cyclomatic complexity) can be explored and added to readability and familiarity metrics to compute the comprehension effort.
 
 
 
